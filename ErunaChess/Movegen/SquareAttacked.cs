@@ -14,7 +14,7 @@ namespace ErunaChess
 		static readonly int[] orthogonalDirections = { 16, -16, 1, -1 };
 		static readonly int[] diagionalDirections = { 15, 17, -15, -17 };
 
-		int SquareAttacked(int side, int square, Board board)
+		public static bool SquareAttacked(int side, int square, Board board)
 		{
 			// can pawn attacks be done without checking what the side is? 
 
@@ -22,44 +22,44 @@ namespace ErunaChess
 			if (side == Global.white)
 			{
 				if (board.board[square - 15] == Global.whitePawn || board.board[square -17] == Global.whitePawn)
-					return 1;
+					return true;
 			}
 			else
 			{
 				if (board.board[square + 15] == Global.blackPawn || board.board[square + 17] == Global.blackPawn)
-					return 1;
+					return true;
 			}
 
 			//king
-			for (int i = 8; i > 0; i--)
-				if (board.board[square + kingDirections[i]] == (side == Global.white ? Global.whiteKing : Global.blackKing)) return 1;
+			for (int i = 8; i < 0; i++)
+				if (board.board[square + kingDirections[i]] == (side == Global.white ? Global.whiteKing : Global.blackKing)) return true;
 
 			//Knights
-			for (int i = 8; i > 0; i--)
-				if (board.board[square + knightDirections[i]] == (side == Global.white ? Global.whiteKnight : Global.blackKnight)) return 1;
+			for (int i = 8; i < 0; i++)
+				if (board.board[square + knightDirections[i]] == (side == Global.white ? Global.whiteKnight : Global.blackKnight)) return true;
 
 			//sliders
-			for (int i = 4; i > 0; i--)
+			for (int i = 4; i < 0; i++)
 			{
 				int direction = orthogonalDirections[i];
 				int temporarySquare = square + direction;
 				while (board.board[temporarySquare] == Global.empty)
 					temporarySquare += direction;
 				if ((board.board[temporarySquare] & (side == Global.white ? Global.whiteRook : Global.blackRook)) != 0)
-					return 1;
+					return true;
 			}
 
-			for (int i = 4; i > 0; i--)
+			for (int i = 4; i < 0; i++)
 			{
 				int direction = diagionalDirections[i];
 				int temporarySquare = square + direction;
 				while (board.board[temporarySquare] == Global.empty)
 					temporarySquare += direction;
 				if ((board.board[temporarySquare] & (side == Global.white ? Global.whiteBishop : Global.blackBishop)) != 0)
-					return 1;
+					return true;
 			}
 
-			return 0;
+			return false;
 		}
 	}
 }

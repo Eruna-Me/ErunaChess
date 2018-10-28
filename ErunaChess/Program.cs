@@ -16,6 +16,9 @@ namespace ErunaChess
 			Board.Draw(board);
 			Console.WriteLine(board.castlePermission);
 			Console.WriteLine(board.enpassantSquare);
+			Debug.DrawAttackedSquares(board, Global.white);
+			Console.WriteLine();
+			Debug.DrawAttackedSquares(board, Global.black);
 			Console.ReadKey();
 		}
 	
