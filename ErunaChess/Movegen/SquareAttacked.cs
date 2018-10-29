@@ -46,8 +46,9 @@ namespace ErunaChess
 				int temporarySquare = square + direction;
 				while (board.board[temporarySquare] == Global.empty)
 					temporarySquare += direction;
-				if ((board.board[temporarySquare] & Global.orthogonalBit) != 0 && ((side == Global.white ? Global.whiteBit : Global.blackBit) & board.board[temporarySquare]) != 0)
-					return true;
+				if ((board.board[temporarySquare] & Global.orthogonalBit) != 0 && ((side == Global.white ? Global.whiteBit : Global.blackBit) & board.board[temporarySquare]) != 0)		//I should consider assigning an additional bit so I only need to check one, 
+					return true;                                                                                                                                                        //I have plenty left anyway+
+
 			}
 			
 			for (int i = 0; i < 4; i++)
