@@ -19,6 +19,7 @@ namespace ErunaChess
 			// can pawn attacks be done without checking what the side is? 
 
 			// Pawns
+
 			if (side == Global.white)
 			{
 				if (board.board[square - 15] == Global.whitePawn || board.board[square -17] == Global.whitePawn)
@@ -31,31 +32,31 @@ namespace ErunaChess
 			}
 
 			//king
-			for (int i = 8; i < 0; i++)
+			for (int i = 0; i < 8; i++)
 				if (board.board[square + kingDirections[i]] == (side == Global.white ? Global.whiteKing : Global.blackKing)) return true;
 
 			//Knights
-			for (int i = 8; i < 0; i++)
+			for (int i = 0; i < 8; i++)
 				if (board.board[square + knightDirections[i]] == (side == Global.white ? Global.whiteKnight : Global.blackKnight)) return true;
-
+			
 			//sliders
-			for (int i = 4; i < 0; i++)
+			for (int i = 0; i < 4; i++)
 			{
 				int direction = orthogonalDirections[i];
 				int temporarySquare = square + direction;
 				while (board.board[temporarySquare] == Global.empty)
 					temporarySquare += direction;
-				if ((board.board[temporarySquare] & (side == Global.white ? Global.whiteRook : Global.blackRook)) != 0)
+				if ((board.board[temporarySquare] & Global.orthogonalBit) != 0 && ((side == Global.white ? Global.whiteBit : Global.blackBit) & board.board[temporarySquare]) != 0)
 					return true;
 			}
-
-			for (int i = 4; i < 0; i++)
+			
+			for (int i = 0; i < 4; i++)
 			{
 				int direction = diagionalDirections[i];
 				int temporarySquare = square + direction;
 				while (board.board[temporarySquare] == Global.empty)
 					temporarySquare += direction;
-				if ((board.board[temporarySquare] & (side == Global.white ? Global.whiteBishop : Global.blackBishop)) != 0)
+				if ((board.board[temporarySquare] & Global.diagionalBit) != 0 && ((side == Global.white ? Global.whiteBit : Global.blackBit) & board.board[temporarySquare]) != 0)
 					return true;
 			}
 

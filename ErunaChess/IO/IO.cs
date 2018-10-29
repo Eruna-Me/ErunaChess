@@ -81,8 +81,7 @@ namespace ErunaChess
 			{
 				int file = FEN[i] - 'a';
 				int rank = FEN[i+1] - '1';
-				Console.WriteLine(file);
-				Console.WriteLine(rank);
+
 				board.enpassantSquare =(rank * 16) + file + (int)Global.Square.A1;
 			}
 
