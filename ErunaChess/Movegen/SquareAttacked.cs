@@ -8,7 +8,6 @@ namespace ErunaChess
 {
 	class Attack
 	{
-		//piecedirs, alternatively I could try putting them in a 2d array.
 		static readonly int[] knightDirections = { 31, 33, 14, 18, -31, -33, -14, -18 };
 		static readonly int[] kingDirections = { 15, 16, 17, -1, 1, -15, -16, -17 };
 		static readonly int[] orthogonalDirections = { 16, -16, 1, -1 };
@@ -16,10 +15,7 @@ namespace ErunaChess
 
 		public static bool SquareAttacked(int side, int square, Board board)
 		{
-			// can pawn attacks be done without checking what the side is? 
-
 			// Pawns
-
 			if (side == Global.white)
 			{
 				if (board.board[square - 15] == Global.whitePawn || board.board[square -17] == Global.whitePawn)
@@ -46,9 +42,8 @@ namespace ErunaChess
 				int temporarySquare = square + direction;
 				while (board.board[temporarySquare] == Global.empty)
 					temporarySquare += direction;
-				if ((board.board[temporarySquare] & Global.orthogonalBit) != 0 && ((side == Global.white ? Global.whiteBit : Global.blackBit) & board.board[temporarySquare]) != 0)		//I should consider assigning an additional bit so I only need to check one, 
-					return true;                                                                                                                                                        //I have plenty left anyway+
-
+				if ((board.board[temporarySquare] & (Global.orthogonalBit + Global.border)) == (side == Global.white ? Global.whiteRook : Global.blackRook))
+					return true; 
 			}
 			
 			for (int i = 0; i < 4; i++)
@@ -57,7 +52,7 @@ namespace ErunaChess
 				int temporarySquare = square + direction;
 				while (board.board[temporarySquare] == Global.empty)
 					temporarySquare += direction;
-				if ((board.board[temporarySquare] & Global.diagionalBit) != 0 && ((side == Global.white ? Global.whiteBit : Global.blackBit) & board.board[temporarySquare]) != 0)
+				if ((board.board[temporarySquare] & (Global.diagionalBit + Global.border)) == (side == Global.white ? Global.whiteBishop : Global.blackBishop))
 					return true;
 			}
 
