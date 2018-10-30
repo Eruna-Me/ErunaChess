@@ -8,6 +8,7 @@ namespace ErunaChess
 {
 	public class Board
 	{
+		public enum Pieces { whitePawn = 0, whiteKnight, whiteBishop, whiteRook, whiteQueen, whiteKing, blackPawn, blackKnight, blackBishop, blackRook, blackQueen, blackKing };
 		public int[] board = new int[Global.boardSize];
 		public int[,] pieces = new int[12, 10]; //I need to think of a smarter way of doing this.
 

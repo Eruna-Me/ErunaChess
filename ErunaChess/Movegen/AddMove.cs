@@ -26,8 +26,9 @@ namespace ErunaChess
 			moveList.moves[moveList.count].score = move;
 			moveList.count++;
 		}
-		public static void PawnCaptureMove(Board board, int move, MoveList moveList)
+		public static void PromotionMove(Board board, int move, MoveList moveList)
 		{
+			//make sure to add promotions to all possible pieces
 			moveList.moves[moveList.count].move = move;
 			moveList.moves[moveList.count].score = move;
 			moveList.count++;
