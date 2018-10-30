@@ -48,6 +48,8 @@
     <Compile Include="Hash.cs" />
     <Compile Include="Init.cs" />
     <Compile Include="IO\IO.cs" />
+    <Compile Include="Movegen\AddMove.cs" />
+    <Compile Include="Movegen\MoveGenerator.cs" />
     <Compile Include="Movegen\Move.cs" />
     <Compile Include="Movegen\MoveList.cs" />
     <Compile Include="Program.cs" />

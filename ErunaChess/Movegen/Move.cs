@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ErunaChess
 {
-	class Move
+	public class Move
 	{
-		int move;
-		int score;
+		public int move;
+		public int score;
 
 		public static int From(int square) =>  square & 0xFF;
 		public static int To(int square) => (square >> 8) & 0xFF;
@@ -22,5 +22,21 @@ namespace ErunaChess
 
 		public static int CaptureFlag() => 0x1F >> 16;
 		public static int PromotedFlag() => 0x1F >> 22;
+
+		static public int Write(int from, int to, int captured, int promoted, bool enPassantFlag, bool pawnStartFlag, bool castleFlag)
+		{
+			int move = 0;
+
+			move += From(from);
+			move += To(to);
+			move += Captured(captured);
+			move += Promoted(promoted);
+
+			if (enPassantFlag)	move += EnPassantFlag();
+			if (pawnStartFlag)	move += PawnStartFlag();
+			if (castleFlag)		move += CastleFlag();
+
+			return move;
+		}
 	}
 }
