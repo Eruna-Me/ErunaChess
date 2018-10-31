@@ -8,8 +8,8 @@ namespace ErunaChess
 {
 	class Global
 	{
-		public const int white = 0;
-		public const int black = 1;
+		public const int white = whiteBit;
+		public const int black = blackBit;
 
 		public const int boardWidth = 16;
 		public const int boardHeight = 16;

@@ -12,13 +12,18 @@ namespace ErunaChess
 		{
 			Init.All();
 			Board board = new Board();
-			IO.ParseFen(board, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+			MoveList moveList = new MoveList();
+			//moveList.moves[0] = new Move(); 
+			//IO.ParseFen(board, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+			IO.ParseFen(board, "rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1");
+			Console.WriteLine(board.pieceCount[(int)Board.Pieces.whitePawn]);
 			Board.Draw(board);
 			Console.WriteLine(board.castlePermission);
 			Console.WriteLine(board.enpassantSquare);
 			Debug.DrawAttackedSquares(board, Global.white);
 			Console.WriteLine();
 			Debug.DrawAttackedSquares(board, Global.black);
+			MoveGenerator.GenerateAllMoves(board, moveList);
 			Console.ReadKey();
 		}
 	
