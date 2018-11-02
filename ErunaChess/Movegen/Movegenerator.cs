@@ -8,8 +8,10 @@ namespace ErunaChess
 {
 	public static class MoveGenerator
 	{
-		static readonly int[] KnightDirections = { 33, 31, -33, -31, 18, 14, -18, -14 };
-		static readonly int[] KingDirections = { 1, -1, 16, 15, 17, -16, -15, -17 };
+		static readonly int[] knightDirections = { 33, 31, -33, -31, 18, 14, -18, -14 };
+		static readonly int[] kingDirections = { 1, -1, 16, 15, 17, -16, -15, -17 };
+		static readonly int[] rookDirections = { 1, -1, 16, -16 };
+		static readonly int[] bishopDirections = { 15, 17, -15, -17 };
 
 		public static void GenerateAllMoves(Board board, MoveList moveList)
 		{
@@ -100,13 +102,14 @@ namespace ErunaChess
 				}
 			} 
 
+			//adding methods for slider move and non slider generation would save quite some lines.
 			int knight = board.side == Global.white ? (int)Board.Pieces.whiteKnight : (int)Board.Pieces.blackKnight;
 			for (int i = 0; i < board.pieceCount[knight]; i++)
 			{
 				int square = board.pieces[knight, i];
 				for (int j = 0; j < 8; j++)
 				{
-					int toSquare = square + KnightDirections[j];
+					int toSquare = square + knightDirections[j];
 					if (board.board[toSquare] == Global.empty)
 					{
 						AddMove.QuietMove(board, Move.Write(square, toSquare, 0, 0, false, false, false), moveList);
@@ -119,12 +122,12 @@ namespace ErunaChess
 			}
 
 			int king = board.side == Global.white ? (int)Board.Pieces.whiteKing : (int)Board.Pieces.blackKing;
-			for (int i = 0; i < board.pieceCount[king]; i++)
+			for (int i = 0; i < board.pieceCount[king]; i++) // a bit odd, there is always only one king
 			{
 				int square = board.pieces[king, i];
 				for (int j = 0; j < 8; j++)
 				{
-					int toSquare = square + KingDirections[j];
+					int toSquare = square + kingDirections[j];
 					if (board.board[toSquare] == Global.empty)
 					{
 						AddMove.QuietMove(board, Move.Write(square, toSquare, 0, 0, false, false, false), moveList);
@@ -132,6 +135,75 @@ namespace ErunaChess
 					if ((board.board[toSquare] & Global.border) == enemy)
 					{
 						AddMove.CaptureMove(board, Move.Write(square, toSquare, board.board[toSquare], 0, false, false, false), moveList);
+					}
+				}
+			}
+
+			int bishop = board.side == Global.white ? (int)Board.Pieces.whiteBishop : (int)Board.Pieces.blackBishop;
+			for (int i = 0; i < board.pieceCount[bishop]; i++)
+			{
+				int square = board.pieces[bishop, i];
+				for (int j = 0; j < 4; j++)
+				{
+					int toSquare = square + bishopDirections[j];
+					while(true)
+					{
+						if ((board.board[toSquare] & Global.border) > 0)
+						{
+							if ((board.board[toSquare] & Global.border) == enemy)
+							{
+								AddMove.CaptureMove(board, Move.Write(square, toSquare, board.board[toSquare], 0, false, false, false), moveList);
+							}
+							break;
+						}
+						AddMove.QuietMove(board, Move.Write(square, toSquare, 0, 0, false, false, false), moveList);
+						toSquare += bishopDirections[j];
+					}
+				}
+			}
+
+			int rook = board.side == Global.white ? (int)Board.Pieces.whiteRook : (int)Board.Pieces.blackRook;
+			for (int i = 0; i < board.pieceCount[rook]; i++)
+			{
+				int square = board.pieces[rook, i];
+				for (int j = 0; j < 4; j++)
+				{
+					int toSquare = square + rookDirections[j];
+					while (true)
+					{
+						if ((board.board[toSquare] & Global.border) > 0)
+						{
+							if ((board.board[toSquare] & Global.border) == enemy)
+							{
+								AddMove.CaptureMove(board, Move.Write(square, toSquare, board.board[toSquare], 0, false, false, false), moveList);
+							}
+							break;
+						}
+						AddMove.QuietMove(board, Move.Write(square, toSquare, 0, 0, false, false, false), moveList);
+						toSquare += rookDirections[j];
+					}
+				}
+			}
+
+			int queen = board.side == Global.white ? (int)Board.Pieces.whiteQueen : (int)Board.Pieces.blackQueen;
+			for (int i = 0; i < board.pieceCount[queen]; i++)
+			{
+				int square = board.pieces[queen, i];
+				for (int j = 0; j < 4; j++)
+				{
+					int toSquare = square + kingDirections[j];
+					while (true)
+					{
+						if ((board.board[toSquare] & Global.border) > 0)
+						{
+							if ((board.board[toSquare] & Global.border) == enemy)
+							{
+								AddMove.CaptureMove(board, Move.Write(square, toSquare, board.board[toSquare], 0, false, false, false), moveList);
+							}
+							break;
+						}
+						AddMove.QuietMove(board, Move.Write(square, toSquare, 0, 0, false, false, false), moveList);
+						toSquare += kingDirections[j];
 					}
 				}
 			}
