@@ -58,6 +58,24 @@ namespace ErunaChess
 							AddMove.EnpassantMove(board, Move.Write(square, board.enpassantSquare, board.board[board.enpassantSquare], 0, true, false, false), moveList);
 					}
 				}
+				//castling
+				if ((board.castlePermission & Global.whiteKingSideCastle) > 0)
+				{
+					if (board.board[73] == Global.empty && board.board[74] == Global.empty)
+					{
+						if (Attack.SquareAttacked(enemy, 73, board) && Attack.SquareAttacked(enemy, 74, board))
+							AddMove.QuietMove(board, Move.Write(72, 74, 0, 0, false, false, true), moveList);
+					}
+				}
+
+				if ((board.castlePermission & Global.whiteQueenSideCastle) > 0)
+				{
+					if (board.board[71] == Global.empty && board.board[70] == Global.empty)
+					{
+						if (Attack.SquareAttacked(enemy, 71, board) && Attack.SquareAttacked(enemy, 70, board))
+							AddMove.QuietMove(board, Move.Write(72, 70, 0, 0, false, false, true), moveList);
+					}
+				}
 			}
 			// generate black pawn moves
 			else
@@ -98,6 +116,24 @@ namespace ErunaChess
 
 						if (square - Global.boardWidth - 1 == board.enpassantSquare)
 							AddMove.EnpassantMove(board, Move.Write(square, board.enpassantSquare, board.board[board.enpassantSquare], 0, true, false, false), moveList);
+					}
+				}
+				//castling
+				if ((board.castlePermission & Global.blackKingSideCastle) > 0)
+				{
+					if (board.board[185] == Global.empty && board.board[186] == Global.empty)
+					{
+						if (Attack.SquareAttacked(enemy, 185, board) && Attack.SquareAttacked(enemy, 186, board))
+							AddMove.QuietMove(board, Move.Write(184, 186, 0, 0, false, false, true), moveList);
+					}
+				}
+
+				if ((board.castlePermission & Global.blackQueenSideCastle) > 0)
+				{
+					if (board.board[183] == Global.empty && board.board[182] == Global.empty)
+					{
+						if (Attack.SquareAttacked(enemy, 183, board) && Attack.SquareAttacked(enemy, 182, board))
+							AddMove.QuietMove(board, Move.Write(184, 182, 0, 0, false, false, true), moveList);
 					}
 				}
 			} 
