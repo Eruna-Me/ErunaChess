@@ -9,6 +9,7 @@ namespace ErunaChess
 	public static class MoveGenerator
 	{
 		static readonly int[] KnightDirections = { 33, 31, -33, -31, 18, 14, -18, -14 };
+		static readonly int[] KingDirections = { 1, -1, 16, 15, 17, -16, -15, -17 };
 
 		public static void GenerateAllMoves(Board board, MoveList moveList)
 		{
@@ -106,6 +107,24 @@ namespace ErunaChess
 				for (int j = 0; j < 8; j++)
 				{
 					int toSquare = square + KnightDirections[j];
+					if (board.board[toSquare] == Global.empty)
+					{
+						AddMove.QuietMove(board, Move.Write(square, toSquare, 0, 0, false, false, false), moveList);
+					}
+					if ((board.board[toSquare] & Global.border) == enemy)
+					{
+						AddMove.CaptureMove(board, Move.Write(square, toSquare, board.board[toSquare], 0, false, false, false), moveList);
+					}
+				}
+			}
+
+			int king = board.side == Global.white ? (int)Board.Pieces.whiteKing : (int)Board.Pieces.blackKing;
+			for (int i = 0; i < board.pieceCount[king]; i++)
+			{
+				int square = board.pieces[king, i];
+				for (int j = 0; j < 8; j++)
+				{
+					int toSquare = square + KingDirections[j];
 					if (board.board[toSquare] == Global.empty)
 					{
 						AddMove.QuietMove(board, Move.Write(square, toSquare, 0, 0, false, false, false), moveList);
