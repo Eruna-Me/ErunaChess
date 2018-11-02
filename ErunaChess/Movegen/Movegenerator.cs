@@ -8,11 +8,13 @@ namespace ErunaChess
 {
 	public static class MoveGenerator
 	{
+		static readonly int[] KnightDirections = { 33, 31, -33, -31, 18, 14, -18, -14 };
+
 		public static void GenerateAllMoves(Board board, MoveList moveList)
 		{
 			int enemy = board.side ^ Global.border;
-
-			// generate white pawn moves (works as expected)
+			
+			// generate white pawn moves
 			if (board.side == Global.white)
 			{
 				for (int i = 0; i < board.pieceCount[(int)Board.Pieces.whitePawn]; i++)
@@ -95,7 +97,26 @@ namespace ErunaChess
 							AddMove.EnpassantMove(board, Move.Write(square, board.enpassantSquare, board.board[board.enpassantSquare], 0, true, false, false), moveList);
 					}
 				}
+			} 
+
+			int knight = board.side == Global.white ? (int)Board.Pieces.whiteKnight : (int)Board.Pieces.blackKnight;
+			for (int i = 0; i < board.pieceCount[knight]; i++)
+			{
+				int square = board.pieces[knight, i];
+				for (int j = 0; j < 8; j++)
+				{
+					int toSquare = square + KnightDirections[j];
+					if (board.board[toSquare] == Global.empty)
+					{
+						AddMove.QuietMove(board, Move.Write(square, toSquare, 0, 0, false, false, false), moveList);
+					}
+					if ((board.board[toSquare] & Global.border) == enemy)
+					{
+						AddMove.CaptureMove(board, Move.Write(square, toSquare, board.board[toSquare], 0, false, false, false), moveList);
+					}
+				}
 			}
+
 			Console.WriteLine(moveList.count + " moves");
 
 			for (int i = 0; i < moveList.count; i++ )
