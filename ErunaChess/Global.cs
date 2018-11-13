@@ -29,6 +29,7 @@ namespace ErunaChess
 		public const int empty = 0;
 		public const int border = 48;
 
+		public const int kingBits = 3;
 		public const int orthogonalBit = 4;
 		public const int diagionalBit = 8;
 		public const int whiteBit = 16;
@@ -40,14 +41,14 @@ namespace ErunaChess
 		public const int whiteBishop =	whiteBit + diagionalBit;
 		public const int whiteRook =	whiteBit + orthogonalBit;
 		public const int whiteQueen =	whiteBit + orthogonalBit + diagionalBit;
-		public const int whiteKing = 19;
+		public const int whiteKing =	whiteBit + kingBits;
 		//black piece constants
 		public const int blackPawn = 33;
 		public const int blackKnight = 34;
 		public const int blackBishop =	blackBit + diagionalBit;
 		public const int blackRook =	blackBit + orthogonalBit;
 		public const int blackQueen =	blackBit + orthogonalBit + diagionalBit;
-		public const int blackKing = 35;
+		public const int blackKing =	blackBit + kingBits;
 
 		public const int whiteKingSideCastle = 1;
 		public const int whiteQueenSideCastle = 2;
