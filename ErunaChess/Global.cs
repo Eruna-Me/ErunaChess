@@ -29,6 +29,7 @@ namespace ErunaChess
 		public const int empty = 0;
 		public const int border = 48;
 
+		public const int pawnBit = 1;
 		public const int kingBits = 3;
 		public const int orthogonalBit = 4;
 		public const int diagionalBit = 8;

@@ -16,16 +16,9 @@ namespace ErunaChess
 		public static bool SquareAttacked(int side, int square, Board board)
 		{
 			// Pawns
-			if (side == Global.white)
-			{
-				if (board.board[square - 15] == Global.whitePawn || board.board[square -17] == Global.whitePawn)
-					return true;
-			}
-			else
-			{
-				if (board.board[square + 15] == Global.blackPawn || board.board[square + 17] == Global.blackPawn)
-					return true;
-			}
+			int pawnDirection = side == Global.white ? -Global.boardWidth : Global.boardWidth;
+			if (board.board[square + pawnDirection + 1] == side + Global.pawnBit || board.board[square + pawnDirection - 1] == side + Global.pawnBit)
+				return true;
 
 			//king
 			for (int i = 0; i < 8; i++)
