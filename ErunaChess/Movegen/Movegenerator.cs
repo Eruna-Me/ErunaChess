@@ -28,7 +28,7 @@ namespace ErunaChess
 
 		public static int enemy;
 
-		public static void GenerateMovesForPiece(Board board, MoveList moveList, int piece, int directions, bool slider)
+		public static void GenerateMovesForPiece(Board board, MovesList moveList, int piece, int directions, bool slider)
 		{
 			for (int i = 0; i < board.pieces[piece].Count; i++) 
 			{
@@ -53,7 +53,7 @@ namespace ErunaChess
 			}
 		}
 
-		public static void GenerateAllMoves(Board board, MoveList moveList)
+		public static void GenerateAllMoves(Board board, MovesList moveList)
 		{
 			enemy = board.side ^ Global.border;
 			
@@ -188,9 +188,9 @@ namespace ErunaChess
 
 			GenerateMovesForPiece(board, moveList, board.side == Global.white ? Global.whiteBishop : Global.blackBishop, 4, true);
 
-			Console.WriteLine(moveList.count + " moves"); //Temporary debugging code!!!
+			Console.WriteLine(moveList.moves.Count + " moves"); //Temporary debugging code!!!
 
-			for (int i = 0; i < moveList.count; i++ )
+			for (int i = 0; i < moveList.moves.Count; i++ )
 			{
 				Console.WriteLine();
 				Console.WriteLine(Move.From(moveList.moves[i].move) + " from");

@@ -8,6 +8,12 @@ namespace ErunaChess
 {
 	public class Move
 	{
+		public Move(int move, int score)
+		{
+			this.move = move;
+			this.score = score;
+		}
+
 		public int move;
 		public int score;
 

@@ -6,16 +6,8 @@ using System.Threading.Tasks;
 
 namespace ErunaChess
 {
-	public class MoveList
+	public class MovesList
 	{
-		public MoveList()
-		{
-			for(int i = 0; i < 256; i++)
-			{
-				moves[i] = new Move();
-			}
-		}
-		public Move[] moves = new Move[256]; //it might make more sense to put this in a list or something.
-		public int count;
+		public List<Move> moves = new List<Move>();
 	}
 }
