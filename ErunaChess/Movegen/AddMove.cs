@@ -21,7 +21,6 @@ namespace ErunaChess
 		public static void PromotionMove(Board board, int move, MovesList movesList)
 		{
 			//add promotions
-			moveList.moves.Add(new Move(move + ((board.side == Global.white ? Global.whiteBishop : Global.blackBishop) << 22), 0));
 			movesList.moves.Add(new Move(move + ((board.side == Global.white ? Global.whiteQueen : Global.blackQueen) << 22), 0));
 			movesList.moves.Add(new Move(move + ((board.side == Global.white ? Global.whiteBishop : Global.blackBishop) << 22), 0));
 			movesList.moves.Add(new Move(move + ((board.side == Global.white ? Global.whiteRook : Global.blackRook) << 22), 0));
