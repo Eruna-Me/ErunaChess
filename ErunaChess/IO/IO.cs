@@ -8,9 +8,14 @@ namespace ErunaChess
 {
 	static class IO
 	{
+		static private void AddPiece(Board board, int piece, int square)
+		{
+			board.board[square] = piece;
+			board.pieces[piece].Add(square);
+		}
 		static public void ParseFen(Board board, string FEN )
 		{
-			//prevent bad FENs crashing the program
+			//TODO : prevent bad FENs crashing the program
 
 			//start at the upper rank
 			Board.Reset(board);
@@ -23,18 +28,18 @@ namespace ErunaChess
 			{
 				switch (FEN[i])
 				{
-					case 'P': board.board[sq] = Global.whitePawn;	board.pieces[(int)Board.Pieces.whitePawn, board.pieceCount[(int)Board.Pieces.whitePawn]] = sq; board.pieceCount[(int)Board.Pieces.whitePawn]++;	i++; sq++; continue;
-					case 'N': board.board[sq] = Global.whiteKnight; board.pieces[(int)Board.Pieces.whiteKnight, board.pieceCount[(int)Board.Pieces.whiteKnight]] = sq; board.pieceCount[(int)Board.Pieces.whiteKnight]++;	i++; sq++; continue;
-					case 'B': board.board[sq] = Global.whiteBishop; board.pieces[(int)Board.Pieces.whiteBishop, board.pieceCount[(int)Board.Pieces.whiteBishop]] = sq; board.pieceCount[(int)Board.Pieces.whiteBishop]++;	i++; sq++; continue;
-					case 'R': board.board[sq] = Global.whiteRook;	board.pieces[(int)Board.Pieces.whiteRook, board.pieceCount[(int)Board.Pieces.whiteRook]] = sq; board.pieceCount[(int)Board.Pieces.whiteRook]++;	i++; sq++; continue;
-					case 'Q': board.board[sq] = Global.whiteQueen;	board.pieces[(int)Board.Pieces.whiteQueen, board.pieceCount[(int)Board.Pieces.whiteQueen]] = sq; board.pieceCount[(int)Board.Pieces.whiteQueen]++;	i++; sq++; continue;
-					case 'K': board.board[sq] = Global.whiteKing;	board.pieces[(int)Board.Pieces.whiteKing, board.pieceCount[(int)Board.Pieces.whiteKing]] = sq; board.pieceCount[(int)Board.Pieces.whiteKing]++;	i++; sq++; continue;
-					case 'p': board.board[sq] = Global.blackPawn;	board.pieces[(int)Board.Pieces.blackPawn, board.pieceCount[(int)Board.Pieces.blackPawn]] = sq; board.pieceCount[(int)Board.Pieces.blackPawn]++;	i++; sq++; continue;
-					case 'n': board.board[sq] = Global.blackKnight; board.pieces[(int)Board.Pieces.blackKnight, board.pieceCount[(int)Board.Pieces.blackKnight]] = sq; board.pieceCount[(int)Board.Pieces.blackKnight]++;	i++; sq++; continue;
-					case 'b': board.board[sq] = Global.blackBishop; board.pieces[(int)Board.Pieces.blackBishop, board.pieceCount[(int)Board.Pieces.blackBishop]] = sq; board.pieceCount[(int)Board.Pieces.blackBishop]++;	i++; sq++; continue;
-					case 'r': board.board[sq] = Global.blackRook;	board.pieces[(int)Board.Pieces.blackRook, board.pieceCount[(int)Board.Pieces.blackRook]] = sq; board.pieceCount[(int)Board.Pieces.blackRook]++;	i++; sq++; continue;
-					case 'q': board.board[sq] = Global.blackQueen;	board.pieces[(int)Board.Pieces.blackQueen, board.pieceCount[(int)Board.Pieces.blackQueen]] = sq; board.pieceCount[(int)Board.Pieces.blackQueen]++;	i++; sq++; continue;
-					case 'k': board.board[sq] = Global.blackKing;	board.pieces[(int)Board.Pieces.blackKing, board.pieceCount[(int)Board.Pieces.blackKing]]  = sq; board.pieceCount[(int)Board.Pieces.blackKing]++;	i++; sq++; continue;
+					case 'P': AddPiece(board, Global.whitePawn, sq); i++; sq++; continue;
+					case 'N': AddPiece(board, Global.whiteKnight, sq); i++; sq++; continue;
+					case 'B': AddPiece(board, Global.whiteBishop, sq); i++; sq++; continue;
+					case 'R': AddPiece(board, Global.whiteRook, sq); i++; sq++; continue;
+					case 'Q': AddPiece(board, Global.whiteQueen, sq); i++; sq++; continue;
+					case 'K': AddPiece(board, Global.whiteKing, sq); i++; sq++; continue;
+					case 'p': AddPiece(board, Global.blackPawn, sq); i++; sq++; continue;
+					case 'n': AddPiece(board, Global.blackKnight, sq); i++; sq++; continue;
+					case 'b': AddPiece(board, Global.blackBishop, sq); i++; sq++; continue;
+					case 'r': AddPiece(board, Global.blackRook, sq); i++; sq++; continue;
+					case 'q': AddPiece(board, Global.blackQueen, sq); i++; sq++; continue;
+					case 'k': AddPiece(board, Global.blackKing, sq); i++; sq++; continue;
 
 					case '1':
 					case '2':

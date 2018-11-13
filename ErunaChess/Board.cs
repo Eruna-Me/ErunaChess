@@ -8,9 +8,22 @@ namespace ErunaChess
 {
 	public class Board
 	{
-		public enum Pieces { whitePawn = 0, whiteKnight, whiteBishop, whiteRook, whiteQueen, whiteKing, blackPawn, blackKnight, blackBishop, blackRook, blackQueen, blackKing };
 		public int[] board = new int[Global.boardSize];
-		public int[,] pieces = new int[12, 10]; //I need to think of a smarter way of doing this.
+		public Dictionary<int, List<int>> pieces = new Dictionary<int, List<int>>()
+		{
+			{ Global.blackPawn, new List<int>() },
+			{ Global.whitePawn, new List<int>() },
+			{ Global.blackKnight, new List<int>() },
+			{ Global.whiteKnight, new List<int>() },
+			{ Global.blackBishop, new List<int>() },
+			{ Global.whiteBishop, new List<int>() },
+			{ Global.blackRook, new List<int>() },
+			{ Global.whiteRook, new List<int>() },
+			{ Global.blackQueen, new List<int>() },
+			{ Global.whiteQueen, new List<int>() },
+			{ Global.blackKing, new List<int>() },
+			{ Global.whiteKing, new List<int>() }
+		};
 
 		public int side;
 		public int enpassantSquare;
@@ -21,8 +34,6 @@ namespace ErunaChess
 		public int historyPly;
 
 		public ulong hashKey;
-
-		public int[] pieceCount = new int[12];
 
 		public Undo[] history = new Undo[2048];//the played moves should never hit 2048, still this looks like a bad solution?
 

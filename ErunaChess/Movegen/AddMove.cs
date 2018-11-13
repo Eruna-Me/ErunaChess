@@ -34,7 +34,7 @@ namespace ErunaChess
 		}
 		public static void PromotionMove(Board board, int move, MoveList moveList)
 		{
-			//make sure to add promotions to all possible pieces
+			//add promotions
 			moveList.moves[moveList.count].move = move + ((board.side == Global.white ? Global.whiteQueen : Global.blackQueen) << 22);
 			moveList.moves[moveList.count].score = 0;	 
 			moveList.count++;							 
