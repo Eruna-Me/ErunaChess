@@ -64,6 +64,7 @@
     <Compile Include="Hash.cs" />
     <Compile Include="Init.cs" />
     <Compile Include="IO\IO.cs" />
+    <Compile Include="MakeMove\MakeMove.cs" />
     <Compile Include="Movegen\AddMove.cs" />
     <Compile Include="Movegen\MoveGenerator.cs" />
     <Compile Include="Movegen\Move.cs" />
@@ -89,5 +90,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -109,7 +109,7 @@ namespace ErunaChess
 			{
 				if (board.board[kingSquare + 1] == Global.empty && board.board[kingSquare + 2] == Global.empty)
 				{
-					if (Attack.SquareAttacked(enemy, kingSquare, board) && Attack.SquareAttacked(enemy, kingSquare + 1, board))
+					if (Attack.SquareAttacked(board, kingSquare, enemy) && Attack.SquareAttacked(board, kingSquare + 1, enemy))
 						AddMove.QuietMove(board, Move.Write(kingSquare, kingSquare + 2, 0, 0, false, false, true), movesList);
 				}
 			}
@@ -118,7 +118,7 @@ namespace ErunaChess
 			{
 				if (board.board[kingSquare - 1] == Global.empty && board.board[kingSquare - 2] == Global.empty)
 				{
-					if (Attack.SquareAttacked(enemy, kingSquare, board) && Attack.SquareAttacked(enemy, kingSquare -1, board))
+					if (Attack.SquareAttacked(board, kingSquare, enemy) && Attack.SquareAttacked(board, kingSquare -1, enemy))
 						AddMove.QuietMove(board, Move.Write(kingSquare, kingSquare - 2, 0, 0, false, false, true), movesList);
 				}
 			}

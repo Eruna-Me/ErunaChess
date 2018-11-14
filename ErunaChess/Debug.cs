@@ -14,7 +14,7 @@ namespace ErunaChess
 			{
 				for (int j = 0; j < 8; j++)
 				{
-					if (Attack.SquareAttacked(side, (i * 16) + j + (int)Global.Square.A1, board))
+					if (Attack.SquareAttacked(board, (i * 16) + j + (int)Global.Square.A1, side))
 						Console.Write('X');
 					else
 						Console.Write('-');

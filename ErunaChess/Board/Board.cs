@@ -74,7 +74,7 @@ namespace ErunaChess
 	public class Undo // TODO think of a sensible name, and move this
 	{
 		public int move;
-		public int enpas;
+		public int enpassantSquare;
 		public int castleperm;
 		public int fiftymove;
 
