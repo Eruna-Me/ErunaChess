@@ -10,7 +10,7 @@ namespace ErunaChess
 	{
 		public static long sideKey;
 		public static long[] castleKeys = new long[16];
-		public static long[,] pieceKeys = new long[13, Global.boardSize];// this is probably a slight waste of memory
+		public static long[,] pieceKeys = new long[13, Global.boardSize];// TODO change this into a dictionary, hash doesn't work anymore like this
 		static readonly Random random = new Random();
 
 		public static void Init()

@@ -140,15 +140,6 @@ namespace ErunaChess
 			GenerateMovesForPiece(board, movesList, board.side == Global.white ? Global.whiteRook : Global.blackRook, 4, true);
 
 			GenerateMovesForPiece(board, movesList, board.side == Global.white ? Global.whiteBishop : Global.blackBishop, 4, true);
-
-			Console.WriteLine(movesList.moves.Count + " moves"); //Temporary debugging code!!!
-
-			for (int i = 0; i < movesList.moves.Count; i++ )
-			{
-				Console.WriteLine();
-				Console.WriteLine(Move.From(movesList.moves[i].move) + " from");
-				Console.WriteLine(Move.To(movesList.moves[i].move) + " to");
-			}
 		}
 	}
 }
