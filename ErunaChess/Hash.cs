@@ -8,18 +8,35 @@ namespace ErunaChess
 {
 	class Hash
 	{
+		const int enPassant = 0;
 		public static long sideKey;
 		public static long[] castleKeys = new long[16];
-		public static long[,] pieceKeys = new long[13, Global.boardSize];// TODO change this into a dictionary, hash doesn't work anymore like this
 		static readonly Random random = new Random();
+
+		public static Dictionary<int, long[]> pieceKeys = new Dictionary<int, long[]>()
+		{
+			{ enPassant,			new long[Global.boardSize] },
+			{ Global.blackPawn,		new long[Global.boardSize] },
+			{ Global.whitePawn,		new long[Global.boardSize] },
+			{ Global.blackKnight,	new long[Global.boardSize] },
+			{ Global.whiteKnight,	new long[Global.boardSize] },
+			{ Global.blackBishop,	new long[Global.boardSize] },
+			{ Global.whiteBishop,	new long[Global.boardSize] },
+			{ Global.blackRook,		new long[Global.boardSize] },
+			{ Global.whiteRook,		new long[Global.boardSize] },
+			{ Global.blackQueen,	new long[Global.boardSize] },
+			{ Global.whiteQueen,	new long[Global.boardSize] },
+			{ Global.blackKing,		new long[Global.boardSize] },
+			{ Global.whiteKing,		new long[Global.boardSize] }
+		};
 
 		public static void Init()
 		{
-			for (int i = 0; i < 12; ++i)
+			foreach (KeyValuePair<int, long[]> i in pieceKeys)
 			{
 				for (int j = 0; j < Global.boardSize; ++j)
 				{
-					pieceKeys[i, j] = NextLong(random);
+					pieceKeys[i.Key][j] = NextLong(random);
 				}
 			}
 			sideKey = NextLong(random);
@@ -46,15 +63,15 @@ namespace ErunaChess
 			for(sq = 0; sq < Global.boardSize; sq++)
 			{
 				piece = board.board[sq];
-				if (piece <= 12) // I need to think of some smart bit stuff for the pieces.
+				if (piece < Global.border && piece > Global.empty)
 				{
-					key ^= pieceKeys[piece,sq];
+					key ^= pieceKeys[piece][sq];
 				}
 			}
 
 			if(board.side == Global.white)	key ^= sideKey;
 
-			if (board.enpassantSquare != (int)Global.Square.offBoard) key ^= pieceKeys[0,board.enpassantSquare];
+			if (board.enpassantSquare != (int)Global.Square.offBoard) key ^= pieceKeys[enPassant][board.enpassantSquare];
 
 			key ^= castleKeys[board.castlePermission];
 

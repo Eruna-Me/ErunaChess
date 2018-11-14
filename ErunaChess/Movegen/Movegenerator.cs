@@ -12,15 +12,16 @@ namespace ErunaChess
 		static readonly int[] kingDirections = { 1, -1, 16, 15, 17, -16, -15, -17 };
 		static readonly int[] rookDirections = { 1, -1, 16, -16 };
 		static readonly int[] bishopDirections = { 15, 17, -15, -17 };
+
 		static readonly Dictionary<int, int[]> Directions = new Dictionary<int, int[]>()
 		{
 			{ Global.whiteKnight, knightDirections },
-			{ Global.blackKnight, knightDirections},
-			{ Global.whiteKing, kingDirections},
+			{ Global.blackKnight, knightDirections },
+			{ Global.whiteKing, kingDirections },
 			{ Global.blackKing, kingDirections },
 			{ Global.blackRook, rookDirections },
 			{ Global.whiteRook, rookDirections },
-			{ Global.whiteBishop, bishopDirections},
+			{ Global.whiteBishop, bishopDirections },
 			{ Global.blackBishop, bishopDirections },
 			{ Global.whiteQueen, kingDirections },
 			{ Global.blackQueen, kingDirections }
