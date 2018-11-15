@@ -8,7 +8,23 @@ namespace ErunaChess
 {
 	static class MakeMove
 	{
-		public static void ClearPiece(Board board, int square)
+		static readonly int[] castleBoard = new int[Global.boardSize];
+
+		public static void InitCastleBoard()
+		{
+			for(int i = 0; i < Global.boardSize; i++)
+			{
+				castleBoard[i] = 15;
+			}
+			castleBoard[(int)Global.Square.A1] = 15 - Global.whiteQueenSideCastle;
+			castleBoard[(int)Global.Square.H1] = 15 - Global.whiteKingSideCastle;
+			castleBoard[(int)Global.Square.E1] = 15 - Global.whiteQueenSideCastle - Global.whiteKingSideCastle;
+			castleBoard[(int)Global.Square.A8] = 15 - Global.blackQueenSideCastle;
+			castleBoard[(int)Global.Square.E8] = 15 - Global.blackKingSideCastle;
+			castleBoard[(int)Global.Square.H8] = 15 - Global.blackQueenSideCastle - Global.blackKingSideCastle;
+		}
+
+		static void ClearPiece(Board board, int square)
 		{
 			int piece = board.board[square];
 
@@ -23,14 +39,15 @@ namespace ErunaChess
 				}
 			}
 		}
-		public static void AddPiece(Board board, int square, int piece)
+
+		static void AddPiece(Board board, int square, int piece)
 		{
 			board.board[square] = piece;
 
 			board.pieces[piece].Add(square);
 		}
 
-		public static void MovePiece(Board board, int from, int to)
+		static void MovePiece(Board board, int from, int to)
 		{
 			int piece = board.board[from];
 
@@ -51,9 +68,10 @@ namespace ErunaChess
 		public static void Make(Board board, int move)
 		{
 			int from = Move.From(move);
-			int to = Move.From(move);
+			int to = Move.From(move); 
+			int piece = board.board[from];
 
-			if((move & Move.EnPassantFlag()) > 0)
+			if ((move & Move.EnPassantFlag()) > 0)
 				ClearPiece(board, board.side == Global.white ? to - Global.boardWidth : to + Global.boardWidth);
 
 			int captured = Move.Captured(move);
@@ -70,19 +88,27 @@ namespace ErunaChess
 				//castle
 			}
 
+
+			if ((piece & Global.pawnBit) > 0)
+			{
+				if ((move & Move.PawnStartFlag()) > 0)
+				{
+					//set enpassant square
+				}
+				board.fiftyMove = 0;
+			}
+
 			board.history[board.historyPly].move = move;
 			board.history[board.historyPly].fiftymove = board.fiftyMove;
 			board.history[board.historyPly].enpassantSquare = board.enpassantSquare;
 			board.history[board.historyPly].move = move;
 
-			//update castle permissions
+			board.castlePermission &= castleBoard[from];
 
 			board.enpassantSquare = (int)Global.Square.offBoard;
 
 			board.ply++;
 			board.historyPly++;
-
-			//check if pawn move
 
 			MovePiece(board, from, to);
 

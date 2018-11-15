@@ -27,7 +27,7 @@ namespace ErunaChess
 
 		public int side;
 		public int enpassantSquare;
-		public byte castlePermission; // it might be better to do this with an int
+		public int castlePermission;
 
 		public int fiftyMove;
 		public int ply;
@@ -35,7 +35,7 @@ namespace ErunaChess
 
 		public ulong hashKey;
 
-		public Undo[] history = new Undo[2048];//the played moves should never hit 2048, still this looks like a bad solution?
+		public Undo[] history = new Undo[2048];//TODO turn this into a list or something
 
 		public static void Draw(Board board)
 		{

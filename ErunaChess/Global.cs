@@ -57,5 +57,3 @@ namespace ErunaChess
 		public const int blackQueenSideCastle = 8;
 	}
 }
-// E.g. 16-31 for white pieces, 32-47 for black pieces, 48 for guards. With board[toSqr]&stm (stm = 16 or 32)
-//	1kp 2kn 4s 8d		16 32 64 128
