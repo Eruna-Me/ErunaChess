@@ -30,6 +30,7 @@ namespace ErunaChess
 		public const int border = 48;
 
 		public const int pawnBit = 1;
+		public const int knightBit = 2;
 		public const int kingBits = 3;
 		public const int orthogonalBit = 4;
 		public const int diagionalBit = 8;
@@ -37,15 +38,15 @@ namespace ErunaChess
 		public const int blackBit = 32;
 
 		//white piece constants			4 = orthogonal 8 = diagional 16 = white 32 = black		pawn =1 (no2) knight = 2(no 1) king = 1 and 2 (can this be done in a smarter way?)
-		public const int whitePawn = 17;
-		public const int whiteKnight = 18;
+		public const int whitePawn =	whiteBit + pawnBit;
+		public const int whiteKnight =	whiteBit + knightBit;
 		public const int whiteBishop =	whiteBit + diagionalBit;
 		public const int whiteRook =	whiteBit + orthogonalBit;
 		public const int whiteQueen =	whiteBit + orthogonalBit + diagionalBit;
 		public const int whiteKing =	whiteBit + kingBits;
 		//black piece constants
-		public const int blackPawn = 33;
-		public const int blackKnight = 34;
+		public const int blackPawn =	blackBit + pawnBit;
+		public const int blackKnight =	blackBit + knightBit;
 		public const int blackBishop =	blackBit + diagionalBit;
 		public const int blackRook =	blackBit + orthogonalBit;
 		public const int blackQueen =	blackBit + orthogonalBit + diagionalBit;

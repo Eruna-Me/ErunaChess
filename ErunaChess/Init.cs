@@ -11,6 +11,7 @@ namespace ErunaChess
 		public static void All()
 		{
 			Hash.Init();
+			MakeMove.InitCastleBoard();
 		}
 	}
 }

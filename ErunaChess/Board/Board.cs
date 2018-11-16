@@ -35,7 +35,7 @@ namespace ErunaChess
 
 		public ulong hashKey;
 
-		public Undo[] history = new Undo[2048];//TODO turn this into a list or something
+		public History[] history = new History[2048];//TODO turn this into a list or something
 
 		public static void Draw(Board board)
 		{
@@ -71,7 +71,7 @@ namespace ErunaChess
 		}
 	}
 
-	public class Undo // TODO think of a sensible name, and move this
+	public class History
 	{
 		public int move;
 		public int enpassantSquare;

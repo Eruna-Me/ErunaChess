@@ -16,12 +16,12 @@ namespace ErunaChess
 			{
 				castleBoard[i] = 15;
 			}
-			castleBoard[(int)Global.Square.A1] = 15 - Global.whiteQueenSideCastle;
-			castleBoard[(int)Global.Square.H1] = 15 - Global.whiteKingSideCastle;
-			castleBoard[(int)Global.Square.E1] = 15 - Global.whiteQueenSideCastle - Global.whiteKingSideCastle;
-			castleBoard[(int)Global.Square.A8] = 15 - Global.blackQueenSideCastle;
-			castleBoard[(int)Global.Square.E8] = 15 - Global.blackKingSideCastle;
-			castleBoard[(int)Global.Square.H8] = 15 - Global.blackQueenSideCastle - Global.blackKingSideCastle;
+			castleBoard[(int)Global.Square.A1] -= Global.whiteQueenSideCastle;
+			castleBoard[(int)Global.Square.H1] -= Global.whiteKingSideCastle;
+			castleBoard[(int)Global.Square.E1] -= Global.whiteQueenSideCastle - Global.whiteKingSideCastle;
+			castleBoard[(int)Global.Square.A8] -= Global.blackQueenSideCastle;
+			castleBoard[(int)Global.Square.E8] -= Global.blackKingSideCastle;
+			castleBoard[(int)Global.Square.H8] -= Global.blackQueenSideCastle - Global.blackKingSideCastle;
 		}
 
 		static void ClearPiece(Board board, int square)
@@ -88,12 +88,11 @@ namespace ErunaChess
 				//castle
 			}
 
-
 			if ((piece & Global.pawnBit) > 0)
 			{
 				if ((move & Move.PawnStartFlag()) > 0)
 				{
-					//set enpassant square
+					board.enpassantSquare = to - from / 2;
 				}
 				board.fiftyMove = 0;
 			}
