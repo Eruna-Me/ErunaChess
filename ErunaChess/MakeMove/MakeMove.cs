@@ -53,8 +53,10 @@ namespace ErunaChess
 
 			board.board[from] = Global.empty;
 
-			board.board[to] = Global.empty;
+			board.board[to] = piece;
 
+			// What was the code below supposed to be doing ????
+			/*
 			for (int i = 0; i < board.pieces[piece].Count; i++)
 			{
 				if (board.pieces[piece][i] == from)
@@ -62,13 +64,13 @@ namespace ErunaChess
 					board.pieces[piece][i] = to;
 					break;
 				}
-			}
+			*/
 		}
 
-		public static void Make(Board board, int move)
+		public static bool Make(Board board, int move)
 		{
 			int from = Move.From(move);
-			int to = Move.From(move); 
+			int to = Move.To(move); 
 			int piece = board.board[from];
 
 			if ((move & Move.EnPassantFlag()) > 0)
@@ -127,10 +129,13 @@ namespace ErunaChess
 
 			board.side ^= Global.border;
 
-			if (Attack.SquareAttacked(board, board.pieces[Global.kingBits + (board.side & Global.border)][0], board.side))
+			if (Attack.SquareAttacked(board, board.pieces[Global.kingBits + (board.side ^ Global.border)][0], board.side))
 			{
 				Take(board);
+				return false;
 			}
+
+			return true;
 		}
 
 		public static void Take (Board board)
@@ -164,7 +169,7 @@ namespace ErunaChess
 				}
 			}
 
-			MovePiece(board, from, to);
+			MovePiece(board, to, from);
 
 			int capturedPiece = Move.Captured(move);
 

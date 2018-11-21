@@ -37,6 +37,14 @@ namespace ErunaChess
 
 		public History[] history = new History[2048];//TODO turn this into a list or something
 
+		public Board ()
+		{
+			for(int i = 0; i < 2048; i++)
+			{
+				history[i] = new History();
+			} 
+		}
+
 		public static void Draw(Board board)
 		{
 			for(int i = 0; i < Global.boardSize; i++)
