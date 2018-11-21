@@ -74,6 +74,26 @@ namespace ErunaChess
 			if ((move & Move.EnPassantFlag()) > 0)
 				ClearPiece(board, board.side == Global.white ? to - Global.boardWidth : to + Global.boardWidth);
 
+			if ((move & Move.CastleFlag()) > 0)
+			{
+				switch (to)
+				{
+					case (int)Global.Square.C1: MovePiece(board, (int)Global.Square.A1, (int)Global.Square.D1); break;
+					case (int)Global.Square.C8: MovePiece(board, (int)Global.Square.A8, (int)Global.Square.D8); break;
+					case (int)Global.Square.G1: MovePiece(board, (int)Global.Square.H1, (int)Global.Square.F1); break;
+					case (int)Global.Square.G8: MovePiece(board, (int)Global.Square.H8, (int)Global.Square.F8); break;
+				}
+			}
+
+			board.history[board.historyPly].move = move;
+			board.history[board.historyPly].fiftymove = board.fiftyMove;
+			board.history[board.historyPly].enpassantSquare = board.enpassantSquare;
+			board.history[board.historyPly].move = move;
+
+			board.castlePermission &= castleBoard[to];
+			board.castlePermission &= castleBoard[from];
+			board.enpassantSquare = (int)Global.Square.offBoard;
+
 			int captured = Move.Captured(move);
 			board.fiftyMove++;
 
@@ -83,10 +103,8 @@ namespace ErunaChess
 				board.fiftyMove = 0;
 			}
 
-			if ((move & Move.CastleFlag()) > 0)
-			{
-				//castle
-			}
+			board.ply++;
+			board.historyPly++;
 
 			if ((piece & Global.pawnBit) > 0)
 			{
@@ -96,18 +114,6 @@ namespace ErunaChess
 				}
 				board.fiftyMove = 0;
 			}
-
-			board.history[board.historyPly].move = move;
-			board.history[board.historyPly].fiftymove = board.fiftyMove;
-			board.history[board.historyPly].enpassantSquare = board.enpassantSquare;
-			board.history[board.historyPly].move = move;
-
-			board.castlePermission &= castleBoard[from];
-
-			board.enpassantSquare = (int)Global.Square.offBoard;
-
-			board.ply++;
-			board.historyPly++;
 
 			MovePiece(board, from, to);
 
@@ -123,7 +129,54 @@ namespace ErunaChess
 
 			if (Attack.SquareAttacked(board, board.pieces[Global.kingBits + (board.side & Global.border)][0], board.side))
 			{
-				//unmake
+				Take(board);
+			}
+		}
+
+		public static void Take (Board board)
+		{
+			board.historyPly--;
+			board.ply--;
+
+			int move = board.history[board.historyPly].move;
+			int from = Move.From(move);
+			int to = Move.To(move);
+
+			board.castlePermission = board.history[board.historyPly].castlePermission;
+			board.fiftyMove = board.history[board.historyPly].fiftymove;
+			board.enpassantSquare = board.history[board.historyPly].enpassantSquare;
+
+			board.side ^= Global.border;
+
+			if ((move & Move.EnPassantFlag()) > 0)
+			{
+				AddPiece(board, to - from * 2, 1);//or from - to
+			}
+
+			if((Move.CastleFlag() & move) != 0)
+			{
+				switch(to)
+				{
+					case (int)Global.Square.C1: MovePiece(board, (int)Global.Square.D1, (int)Global.Square.A1); break;
+					case (int)Global.Square.C8: MovePiece(board, (int)Global.Square.D8, (int)Global.Square.A8); break;
+					case (int)Global.Square.G1: MovePiece(board, (int)Global.Square.F1, (int)Global.Square.H1); break;
+					case (int)Global.Square.G8: MovePiece(board, (int)Global.Square.F8, (int)Global.Square.H8); break;
+				}
+			}
+
+			MovePiece(board, from, to);
+
+			int capturedPiece = Move.Captured(move);
+
+			if (capturedPiece != Global.empty)
+			{
+				AddPiece(board, to, capturedPiece);
+			}
+
+			if (Move.Promoted(move) != Global.empty)
+			{
+				ClearPiece(board, from);
+				AddPiece(board, from, board.side + Global.pawnBit);
 			}
 		}
 	}

@@ -13,7 +13,7 @@ namespace ErunaChess
 		static readonly int[] orthogonalDirections = { 16, -16, 1, -1 };
 		static readonly int[] diagionalDirections = { 15, 17, -15, -17 };
 
-		public static bool SquareAttacked(Board board, int side, int square)
+		public static bool SquareAttacked(Board board, int square, int side)
 		{
 			// Pawns
 			int pawnDirection = side == Global.white ? -Global.boardWidth : Global.boardWidth;

@@ -75,7 +75,7 @@ namespace ErunaChess
 	{
 		public int move;
 		public int enpassantSquare;
-		public int castleperm;
+		public int castlePermission;
 		public int fiftymove;
 
 		public ulong hashKey;
