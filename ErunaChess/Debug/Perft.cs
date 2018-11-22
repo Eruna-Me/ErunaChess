@@ -62,7 +62,7 @@ namespace ErunaChess
 				Console.Write($"move {MoveNum + 1} : { move} : {oldnodes}\n" );
 			}
 
-			Console.Write($"\nTest Complete : {leafNodes} nodes visited in {stopwatch.ElapsedMilliseconds}ms\n" );
+			Console.Write($"\nTest Complete : {leafNodes} nodes visited in {stopwatch.ElapsedMilliseconds}ms, speed = {leafNodes/stopwatch.ElapsedMilliseconds}kn/s\n" );
 
 			return;
 		}
