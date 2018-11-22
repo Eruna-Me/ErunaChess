@@ -80,7 +80,7 @@ namespace ErunaChess
 					{
 						AddMove.QuietPawnMove(board, Move.Write(square, square + direction, 0, 0, false, false, false), movesList);
 						//pawnstart
-						if (board.side == Global.white ? square <= (int)Global.Square.H2 : square >= (int)Global.Square.A7 && board.board[square + direction * 2] == Global.empty)
+						if ((board.side == Global.white ? (square <= (int)Global.Square.H2) : (square >= (int)Global.Square.A7)) && (board.board[square + direction * 2] == Global.empty)) 
 							AddMove.QuietPawnMove(board, Move.Write(square, square + direction * 2, 0, 0, false, true, false), movesList);
 					}
 					//captures

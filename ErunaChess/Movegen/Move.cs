@@ -19,11 +19,11 @@ namespace ErunaChess
 
 		public static int From(int square) =>  (square >> 0) & 0xFF;
 		public static int To(int square) => (square >> 8) & 0xFF;
-		public static int Captured(int piece) => (piece >> 16) & (0x1F >> 16);
-		public static int Promoted(int piece) => (piece >> 22) & (0x1F >> 22);
+		public static int Captured(int piece) => (piece >> 16) & 0x3F;
+		public static int Promoted(int piece) => (piece >> 22) & 0x3F;
 
 		public static int EnPassantFlag() => 1 >> 28;
-		public static int PawnStartFlag() => 1 >> 29;
+		public static int PawnStartFlag() => 1 << 29;
 		public static int CastleFlag() => 1 >> 30;
 
 		public static int CaptureFlag() => 0x1F >> 16;
@@ -34,7 +34,10 @@ namespace ErunaChess
 			int move = 0;
 			move += from << 0;
 			move += to << 8;
-			move += captured << 16;
+			if (captured != 0)
+			{
+				move += captured << 16;
+			}
 			move += promoted << 22;
 
 			if (enPassantFlag)	move += 1 << 28;

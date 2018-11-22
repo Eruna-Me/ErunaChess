@@ -54,9 +54,7 @@ namespace ErunaChess
 			board.board[from] = Global.empty;
 
 			board.board[to] = piece;
-
-			// What was the code below supposed to be doing ????
-			/*
+			
 			for (int i = 0; i < board.pieces[piece].Count; i++)
 			{
 				if (board.pieces[piece][i] == from)
@@ -64,7 +62,7 @@ namespace ErunaChess
 					board.pieces[piece][i] = to;
 					break;
 				}
-			*/
+			} 
 		}
 
 		public static bool Make(Board board, int move)
@@ -90,7 +88,7 @@ namespace ErunaChess
 			board.history[board.historyPly].move = move;
 			board.history[board.historyPly].fiftymove = board.fiftyMove;
 			board.history[board.historyPly].enpassantSquare = board.enpassantSquare;
-			board.history[board.historyPly].move = move;
+			board.history[board.historyPly].castlePermission = board.castlePermission;
 
 			board.castlePermission &= castleBoard[to];
 			board.castlePermission &= castleBoard[from];
@@ -112,7 +110,14 @@ namespace ErunaChess
 			{
 				if ((move & Move.PawnStartFlag()) > 0)
 				{
-					board.enpassantSquare = to - from / 2;
+					if (board.side == Global.white)
+					{
+						board.enpassantSquare = from + 16;
+					}
+					else
+					{
+						board.enpassantSquare = from - 16;
+					}
 				}
 				board.fiftyMove = 0;
 			}
@@ -155,7 +160,14 @@ namespace ErunaChess
 
 			if ((move & Move.EnPassantFlag()) > 0)
 			{
-				AddPiece(board, to - from * 2, 1);//or from - to
+				if (board.side == Global.white)
+				{
+					AddPiece(board, to - 16 , Global.blackPawn);
+				}
+				else
+				{
+					AddPiece(board, to + 16, Global.whitePawn);
+				}
 			}
 
 			if((Move.CastleFlag() & move) != 0)
