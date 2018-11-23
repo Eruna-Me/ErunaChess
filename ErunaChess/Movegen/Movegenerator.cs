@@ -8,24 +8,25 @@ namespace ErunaChess
 {
 	public static class MoveGenerator
 	{
+		static public void InitMoveGenerator()
+		{
+			Directions[Global.whiteKnight] = knightDirections;
+			Directions[Global.whiteBishop] = bishopDirections;
+			Directions[Global.whiteRook] = rookDirections;
+			Directions[Global.whiteQueen] = kingDirections;
+			Directions[Global.whiteKing] = kingDirections;
+			Directions[Global.blackKnight] = knightDirections;
+			Directions[Global.blackBishop] = bishopDirections;
+			Directions[Global.blackRook] = rookDirections;
+			Directions[Global.blackQueen] = kingDirections;
+			Directions[Global.blackKing] = kingDirections;
+		}
+
 		static readonly int[] knightDirections = { 33, 31, -33, -31, 18, 14, -18, -14 };
 		static readonly int[] kingDirections = { 1, -1, 16, 15, 17, -16, -15, -17 };
 		static readonly int[] rookDirections = { 1, -1, 16, -16 };
 		static readonly int[] bishopDirections = { 15, 17, -15, -17 };
-
-		static readonly Dictionary<int, int[]> Directions = new Dictionary<int, int[]>()
-		{
-			{ Global.whiteKnight, knightDirections },
-			{ Global.blackKnight, knightDirections },
-			{ Global.whiteKing, kingDirections },
-			{ Global.blackKing, kingDirections },
-			{ Global.blackRook, rookDirections },
-			{ Global.whiteRook, rookDirections },
-			{ Global.whiteBishop, bishopDirections },
-			{ Global.blackBishop, bishopDirections },
-			{ Global.whiteQueen, kingDirections },
-			{ Global.blackQueen, kingDirections }
-		};
+		static readonly int[][] Directions = new int [Global.border][];
 
 		public static int enemy;
 

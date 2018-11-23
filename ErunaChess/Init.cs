@@ -12,6 +12,7 @@ namespace ErunaChess
 		{
 			Hash.Init();
 			MakeMove.InitCastleBoard();
+			MoveGenerator.InitMoveGenerator();
 		}
 	}
 }

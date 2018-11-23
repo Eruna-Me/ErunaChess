@@ -9,21 +9,7 @@ namespace ErunaChess
 	public class Board
 	{
 		public int[] board = new int[Global.boardSize];
-		public Dictionary<int, List<int>> pieces = new Dictionary<int, List<int>>()
-		{
-			{ Global.blackPawn, new List<int>() },
-			{ Global.whitePawn, new List<int>() },
-			{ Global.blackKnight, new List<int>() },
-			{ Global.whiteKnight, new List<int>() },
-			{ Global.blackBishop, new List<int>() },
-			{ Global.whiteBishop, new List<int>() },
-			{ Global.blackRook, new List<int>() },
-			{ Global.whiteRook, new List<int>() },
-			{ Global.blackQueen, new List<int>() },
-			{ Global.whiteQueen, new List<int>() },
-			{ Global.blackKing, new List<int>() },
-			{ Global.whiteKing, new List<int>() }
-		};
+		public List<int>[] pieces = new List<int>[Global.border];
 
 		public int side;
 		public int enpassantSquare;
@@ -42,7 +28,20 @@ namespace ErunaChess
 			for(int i = 0; i < 2048; i++)
 			{
 				history[i] = new History();
-			} 
+			}
+
+			pieces[Global.blackPawn] = new List<int>();
+			pieces[Global.whitePawn] = new List<int>();
+			pieces[Global.blackKnight] = new List<int>();
+			pieces[Global.whiteKnight] = new List<int>();
+			pieces[Global.blackBishop] = new List<int>();
+			pieces[Global.whiteBishop] = new List<int>();
+			pieces[Global.whiteRook] = new List<int>();
+			pieces[Global.blackRook] = new List<int>();
+			pieces[Global.blackQueen] = new List<int>();
+			pieces[Global.whiteQueen] = new List<int>();
+			pieces[Global.blackKing] = new List<int>();
+			pieces[Global.whiteKing] = new List<int>();
 		}
 
 		public static void Draw(Board board)
