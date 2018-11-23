@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ErunaChess
 {
-	public class Move
+	public struct Move
 	{
 		public Move(int move, int score)
 		{
@@ -26,8 +26,8 @@ namespace ErunaChess
 		public static int PawnStartFlag() => 1 << 29;
 		public static int CastleFlag() => 1 << 30;
 
-		public static int CaptureFlag() => 0x1F >> 16;
-		public static int PromotedFlag() => 0x1F >> 22;
+		//public static int CaptureFlag() => 0x1F >> 16;
+		//public static int PromotedFlag() => 0x1F >> 22;
 
 		static public int Write(int from, int to, int captured, int promoted, bool enPassantFlag, bool pawnStartFlag, bool castleFlag)
 		{

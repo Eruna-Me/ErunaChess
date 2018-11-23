@@ -18,10 +18,10 @@ namespace ErunaChess
 			}
 			castleBoard[(int)Global.Square.A1] -= Global.whiteQueenSideCastle;
 			castleBoard[(int)Global.Square.H1] -= Global.whiteKingSideCastle;
-			castleBoard[(int)Global.Square.E1] -= Global.whiteQueenSideCastle - Global.whiteKingSideCastle;
+			castleBoard[(int)Global.Square.E1] += -Global.whiteQueenSideCastle - Global.whiteKingSideCastle;
 			castleBoard[(int)Global.Square.A8] -= Global.blackQueenSideCastle;
-			castleBoard[(int)Global.Square.E8] -= Global.blackKingSideCastle;
-			castleBoard[(int)Global.Square.H8] -= Global.blackQueenSideCastle - Global.blackKingSideCastle;
+			castleBoard[(int)Global.Square.E8] += -Global.blackKingSideCastle - Global.blackQueenSideCastle;
+			castleBoard[(int)Global.Square.H8] -= Global.blackKingSideCastle;
 		}
 
 		static void ClearPiece(Board board, int square)

@@ -13,10 +13,9 @@ namespace ErunaChess
 			Init.All();
 			Board board = new Board();
 			MovesList movesList = new MovesList();
-			IO.ParseFen(board, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-			//IO.ParseFen(board, "rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1");
-			
-			Perft.PerftTest(6, board);
+			IO.ParseFen(board, "r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10 "); 
+
+			Perft.PerftTest(5, board);
 
 			Console.ReadKey();
 		}	
