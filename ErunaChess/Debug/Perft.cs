@@ -23,10 +23,10 @@ namespace ErunaChess
 			MoveGenerator.GenerateAllMoves(board, movesList);
 
 			int MoveNum = 0;
-			for (MoveNum = 0; MoveNum < movesList.moves.Count; ++MoveNum)
+			for (MoveNum = 0; MoveNum < movesList.Count; ++MoveNum)
 			{
 
-				if (!MakeMove.Make(board, movesList.moves[MoveNum].move))
+				if (!MakeMove.Make(board, movesList[MoveNum].move))
 				{
 					continue;
 				}
@@ -48,9 +48,9 @@ namespace ErunaChess
 
 			int move;
 			int MoveNum = 0;
-			for (MoveNum = 0; MoveNum < movesList.moves.Count; ++MoveNum)
+			for (MoveNum = 0; MoveNum < movesList.Count; ++MoveNum)
 			{
-				move = movesList.moves[MoveNum].move;
+				move = movesList[MoveNum].move;
 				if (!MakeMove.Make(board, move))
 				{
 					continue;

@@ -25,13 +25,13 @@ namespace ErunaChess
 
 		public static void WriteDownAllMoves(MovesList movesList)
 		{
-			Console.WriteLine(movesList.moves.Count + " moves");
+			Console.WriteLine(movesList.Count + " moves");
 
-			for (int i = 0; i < movesList.moves.Count; i++)
+			for (int i = 0; i < movesList.Count; i++)
 			{
 				Console.WriteLine();
-				Console.WriteLine("From: " + Move.From(movesList.moves[i].move));
-				Console.WriteLine("to:   " + Move.To(movesList.moves[i].move));
+				Console.WriteLine("From: " + Move.From(movesList[i].move));
+				Console.WriteLine("to:   " + Move.To(movesList[i].move));
 			}
 		}
 	}
