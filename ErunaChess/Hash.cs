@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static ErunaChess.Global.Square;
+using static ErunaChess.Global;
 
 namespace ErunaChess
 {
@@ -15,26 +14,26 @@ namespace ErunaChess
 
 		public static Dictionary<int, long[]> pieceKeys = new Dictionary<int, long[]>()
 		{
-			{ enPassant,			new long[Global.boardSize] },
-			{ Global.blackPawn,		new long[Global.boardSize] },
-			{ Global.whitePawn,		new long[Global.boardSize] },
-			{ Global.blackKnight,	new long[Global.boardSize] },
-			{ Global.whiteKnight,	new long[Global.boardSize] },
-			{ Global.blackBishop,	new long[Global.boardSize] },
-			{ Global.whiteBishop,	new long[Global.boardSize] },
-			{ Global.blackRook,		new long[Global.boardSize] },
-			{ Global.whiteRook,		new long[Global.boardSize] },
-			{ Global.blackQueen,	new long[Global.boardSize] },
-			{ Global.whiteQueen,	new long[Global.boardSize] },
-			{ Global.blackKing,		new long[Global.boardSize] },
-			{ Global.whiteKing,		new long[Global.boardSize] }
+			{ enPassant,			new long[boardSize] },
+			{ blackPawn,		new long[boardSize] },
+			{ whitePawn,		new long[boardSize] },
+			{ blackKnight,	new long[boardSize] },
+			{ whiteKnight,	new long[boardSize] },
+			{ blackBishop,	new long[boardSize] },
+			{ whiteBishop,	new long[boardSize] },
+			{ blackRook,		new long[boardSize] },
+			{ whiteRook,		new long[boardSize] },
+			{ blackQueen,	new long[boardSize] },
+			{ whiteQueen,	new long[boardSize] },
+			{ blackKing,		new long[boardSize] },
+			{ whiteKing,		new long[boardSize] }
 		};
 
 		public static void Init()
 		{
 			foreach (KeyValuePair<int, long[]> i in pieceKeys)
 			{
-				for (int j = 0; j < Global.boardSize; ++j)
+				for (int j = 0; j < boardSize; ++j)
 				{
 					pieceKeys[i.Key][j] = NextLong(random);
 				}
@@ -60,18 +59,18 @@ namespace ErunaChess
 			int piece, sq;
 			long key = 0;
 
-			for(sq = 0; sq < Global.boardSize; sq++)
+			for(sq = 0; sq < boardSize; sq++)
 			{
-				piece = board.board[sq];
-				if (piece < Global.border && piece > Global.empty)
+				piece = board[sq];
+				if (piece < border && piece > empty)
 				{
 					key ^= pieceKeys[piece][sq];
 				}
 			}
 
-			if(board.side == Global.white)	key ^= sideKey;
+			if(board.side == white)	key ^= sideKey;
 
-			if (board.enpassantSquare != (int)Global.Square.offBoard) key ^= pieceKeys[enPassant][board.enpassantSquare];
+			if (board.enpassantSquare != (int)offBoard) key ^= pieceKeys[enPassant][board.enpassantSquare];
 
 			key ^= castleKeys[board.castlePermission];
 

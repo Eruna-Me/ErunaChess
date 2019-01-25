@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using static ErunaChess.Global.Square;
+using static ErunaChess.Global;
 
 namespace ErunaChess
 {
@@ -10,23 +7,23 @@ namespace ErunaChess
 	{
 		static public void InitMoveGenerator()
 		{
-			Directions[Global.whiteKnight] = knightDirections;
-			Directions[Global.whiteBishop] = bishopDirections;
-			Directions[Global.whiteRook] = rookDirections;
-			Directions[Global.whiteQueen] = kingDirections;
-			Directions[Global.whiteKing] = kingDirections;
-			Directions[Global.blackKnight] = knightDirections;
-			Directions[Global.blackBishop] = bishopDirections;
-			Directions[Global.blackRook] = rookDirections;
-			Directions[Global.blackQueen] = kingDirections;
-			Directions[Global.blackKing] = kingDirections;
+			Directions[whiteKnight] = knightDirections;
+			Directions[whiteBishop] = bishopDirections;
+			Directions[whiteRook] = rookDirections;
+			Directions[whiteQueen] = kingDirections;
+			Directions[whiteKing] = kingDirections;
+			Directions[blackKnight] = knightDirections;
+			Directions[blackBishop] = bishopDirections;
+			Directions[blackRook] = rookDirections;
+			Directions[blackQueen] = kingDirections;
+			Directions[blackKing] = kingDirections;
 		}
 
 		static readonly int[] knightDirections = { 33, 31, -33, -31, 18, 14, -18, -14 };
 		static readonly int[] kingDirections = { 1, -1, 16, 15, 17, -16, -15, -17 };
 		static readonly int[] rookDirections = { 1, -1, 16, -16 };
 		static readonly int[] bishopDirections = { 15, 17, -15, -17 };
-		static readonly int[][] Directions = new int [Global.border][];
+		static readonly int[][] Directions = new int [border][];
 
 		public static int enemy;
 
@@ -40,11 +37,11 @@ namespace ErunaChess
 					int toSquare = square + Directions[piece][j];
 					do
 					{
-						if ((board.board[toSquare] & Global.border) > 0)
+						if ((board[toSquare] & border) > 0)
 						{
-							if ((board.board[toSquare] & Global.border) == enemy)
+							if ((board[toSquare] & border) == enemy)
 							{
-								AddMove.CaptureMove(board, Move.Write(square, toSquare, board.board[toSquare], 0, false, false, false), movesList);
+								AddMove.CaptureMove(board, Move.Write(square, toSquare, board[toSquare], 0, false, false, false), movesList);
 							}
 							break;
 						}
@@ -57,58 +54,58 @@ namespace ErunaChess
 
 		public static void GeneratePawnMoves(Board board, MovesList movesList)
 		{
-			int piece = board.side == Global.white ? Global.whitePawn : Global.blackPawn;
-			int direction = board.side == Global.white ? Global.boardWidth : -Global.boardWidth;
+			int piece = board.side == white ? whitePawn : blackPawn;
+			int direction = board.side == white ? boardWidth : -boardWidth;
 
 			for (int i = 0; i < board.pieces[piece].Count; i++)
 			{
 				int square = board.pieces[piece][i];
 				// promotions
-				if (board.side == Global.white ? square >= (int)Global.Square.A7 : square <= (int)Global.Square.H2)
+				if (board.side == white ? square >= (int)A7 : square <= (int)H2)
 				{
-					if (board.board[square + direction] == Global.empty)
+					if (board[square + direction] == empty)
 						AddMove.PromotionMove(board, Move.Write(square, square + direction, 0, 0, false, false, false), movesList);
 					//captures
-					if ((board.board[square + direction + 1] & Global.border) == enemy)
-						AddMove.PromotionMove(board, Move.Write(square, square + direction + 1, board.board[square + direction + 1], 0, false, false, false), movesList);
+					if ((board[square + direction + 1] & border) == enemy)
+						AddMove.PromotionMove(board, Move.Write(square, square + direction + 1, board[square + direction + 1], 0, false, false, false), movesList);
 
-					if ((board.board[square + direction - 1] & Global.border) == enemy)
-						AddMove.PromotionMove(board, Move.Write(square, square + direction - 1, board.board[square + direction - 1], 0, false, false, false), movesList);
+					if ((board[square + direction - 1] & border) == enemy)
+						AddMove.PromotionMove(board, Move.Write(square, square + direction - 1, board[square + direction - 1], 0, false, false, false), movesList);
 				}
 				else
 				{
-					if (board.board[square + direction] == Global.empty)
+					if (board[square + direction] == empty)
 					{
 						AddMove.QuietPawnMove(board, Move.Write(square, square + direction, 0, 0, false, false, false), movesList);
 						//pawnstart
-						if ((board.side == Global.white ? (square <= (int)Global.Square.H2) : (square >= (int)Global.Square.A7)) && (board.board[square + direction * 2] == Global.empty)) 
+						if ((board.side == white ? (square <= (int)H2) : (square >= (int)A7)) && (board[square + direction * 2] == empty)) 
 							AddMove.QuietPawnMove(board, Move.Write(square, square + direction * 2, 0, 0, false, true, false), movesList);
 					}
 					//captures
-					if ((board.board[square + direction + 1] & Global.border) == enemy)
-						AddMove.PawnCaptureMove(board, Move.Write(square, square + direction + 1, board.board[square + direction + 1], 0, false, false, false), movesList);
+					if ((board[square + direction + 1] & border) == enemy)
+						AddMove.PawnCaptureMove(board, Move.Write(square, square + direction + 1, board[square + direction + 1], 0, false, false, false), movesList);
 
-					if ((board.board[square + direction - 1] & Global.border) == enemy)
-						AddMove.PawnCaptureMove(board, Move.Write(square, square + direction - 1, board.board[square + direction - 1], 0, false, false, false), movesList);
+					if ((board[square + direction - 1] & border) == enemy)
+						AddMove.PawnCaptureMove(board, Move.Write(square, square + direction - 1, board[square + direction - 1], 0, false, false, false), movesList);
 					//enpassant
 					if (square + direction + 1 == board.enpassantSquare)
-						AddMove.EnpassantMove(board, Move.Write(square, board.enpassantSquare, board.board[board.enpassantSquare], 0, true, false, false), movesList);
+						AddMove.EnpassantMove(board, Move.Write(square, board.enpassantSquare, board[board.enpassantSquare], 0, true, false, false), movesList);
 
 					if (square + direction - 1 == board.enpassantSquare)
-						AddMove.EnpassantMove(board, Move.Write(square, board.enpassantSquare, board.board[board.enpassantSquare], 0, true, false, false), movesList);
+						AddMove.EnpassantMove(board, Move.Write(square, board.enpassantSquare, board[board.enpassantSquare], 0, true, false, false), movesList);
 				}
 			}
 		}
 
 		public static void GenerateCastlingMoves(Board board, MovesList movesList)
 		{
-			int kingSideCastle = board.side == Global.white ? Global.whiteKingSideCastle : Global.blackKingSideCastle;
-			int queenSideCastle = board.side == Global.white ? Global.whiteQueenSideCastle : Global.blackQueenSideCastle;
-			int kingSquare = board.pieces[board.side + Global.kingBits][0];
+			int kingSideCastle = board.side == white ? whiteKingSideCastle : blackKingSideCastle;
+			int queenSideCastle = board.side == white ? whiteQueenSideCastle : blackQueenSideCastle;
+			int kingSquare = board.pieces[board.side + kingBits][0];
 
 			if ((board.castlePermission & kingSideCastle) > 0)
 			{
-				if (board.board[kingSquare + 1] == Global.empty && board.board[kingSquare + 2] == Global.empty)
+				if (board[kingSquare + 1] == empty && board[kingSquare + 2] == empty)
 				{
 					if (!Attack.SquareAttacked(board, kingSquare, enemy) && !Attack.SquareAttacked(board, kingSquare + 1, enemy))
 						AddMove.QuietMove(board, Move.Write(kingSquare, kingSquare + 2, 0, 0, false, false, true), movesList);
@@ -117,7 +114,7 @@ namespace ErunaChess
 
 			if ((board.castlePermission & queenSideCastle) > 0)
 			{
-				if (board.board[kingSquare - 1] == Global.empty && board.board[kingSquare - 2] == Global.empty && board.board[kingSquare - 3] == Global.empty)
+				if (board[kingSquare - 1] == empty && board[kingSquare - 2] == empty && board[kingSquare - 3] == empty)
 				{
 					if (!Attack.SquareAttacked(board, kingSquare, enemy) && !Attack.SquareAttacked(board, kingSquare -1, enemy))
 						AddMove.QuietMove(board, Move.Write(kingSquare, kingSquare - 2, 0, 0, false, false, true), movesList);
@@ -127,21 +124,21 @@ namespace ErunaChess
 
 		public static void GenerateAllMoves(Board board, MovesList movesList)
 		{
-			enemy = board.side ^ Global.border;
+			enemy = board.side ^ border;
 
 			GeneratePawnMoves(board, movesList);
 
 			GenerateCastlingMoves(board, movesList);
 
-			GenerateMovesForPiece(board, movesList, board.side == Global.white ? Global.whiteKnight : Global.blackKnight, 8 , false);
+			GenerateMovesForPiece(board, movesList, board.side == white ? whiteKnight : blackKnight, 8 , false);
 
-			GenerateMovesForPiece(board, movesList, board.side == Global.white ? Global.whiteKing : Global.blackKing, 8, false);
+			GenerateMovesForPiece(board, movesList, board.side == white ? whiteKing : blackKing, 8, false);
 
-			GenerateMovesForPiece(board, movesList, board.side == Global.white ? Global.whiteQueen : Global.blackQueen, 8, true);
+			GenerateMovesForPiece(board, movesList, board.side == white ? whiteQueen : blackQueen, 8, true);
 
-			GenerateMovesForPiece(board, movesList, board.side == Global.white ? Global.whiteRook : Global.blackRook, 4, true);
+			GenerateMovesForPiece(board, movesList, board.side == white ? whiteRook : blackRook, 4, true);
 
-			GenerateMovesForPiece(board, movesList, board.side == Global.white ? Global.whiteBishop : Global.blackBishop, 4, true);
+			GenerateMovesForPiece(board, movesList, board.side == white ? whiteBishop : blackBishop, 4, true);
 		}
 	}
 }

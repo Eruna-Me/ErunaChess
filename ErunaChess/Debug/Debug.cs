@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static ErunaChess.Global.Square;
+using static ErunaChess.Global;
 
 namespace ErunaChess
 {
@@ -14,7 +12,7 @@ namespace ErunaChess
 			{
 				for (int j = 0; j < 8; j++)
 				{
-					if (Attack.SquareAttacked(board, (i * 16) + j + (int)Global.Square.A1, side))
+					if (Attack.SquareAttacked(board, (i * 16) + j + (int)A1, side))
 						Console.Write('X');
 					else
 						Console.Write('-');

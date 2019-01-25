@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 
 namespace ErunaChess
 {
-    static public class Perft
+	static public class Perft
     {
 		static long leafNodes;
 

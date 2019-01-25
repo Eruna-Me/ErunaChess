@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ErunaChess
+﻿namespace ErunaChess
 {
-	class Global
+	public class Global
 	{
 		public const int white = whiteBit;
 		public const int black = blackBit;

@@ -1,34 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using static ErunaChess.Global;
+using static ErunaChess.Global.Square;
 
 namespace ErunaChess
 {
 	static class MakeMove
 	{
-		static readonly int[] castleBoard = new int[Global.boardSize];
+		static readonly int[] castleBoard = new int[boardSize];
 
 		public static void InitCastleBoard()
 		{
-			for(int i = 0; i < Global.boardSize; i++)
+			for(int i = 0; i < boardSize; i++)
 			{
 				castleBoard[i] = 15;
 			}
-			castleBoard[(int)Global.Square.A1] -= Global.whiteQueenSideCastle;
-			castleBoard[(int)Global.Square.H1] -= Global.whiteKingSideCastle;
-			castleBoard[(int)Global.Square.E1] += -Global.whiteQueenSideCastle - Global.whiteKingSideCastle;
-			castleBoard[(int)Global.Square.A8] -= Global.blackQueenSideCastle;
-			castleBoard[(int)Global.Square.E8] += -Global.blackKingSideCastle - Global.blackQueenSideCastle;
-			castleBoard[(int)Global.Square.H8] -= Global.blackKingSideCastle;
+			castleBoard[(int)A1] -= whiteQueenSideCastle;
+			castleBoard[(int)H1] -= whiteKingSideCastle;
+			castleBoard[(int)E1] += -whiteQueenSideCastle - whiteKingSideCastle;
+			castleBoard[(int)A8] -= blackQueenSideCastle;
+			castleBoard[(int)E8] += -blackKingSideCastle - blackQueenSideCastle;
+			castleBoard[(int)H8] -= blackKingSideCastle;
 		}
 
 		static void ClearPiece(Board board, int square)
 		{
-			int piece = board.board[square];
+			int piece = board[square];
 
-			board.board[square] = Global.empty;
+			board[square] = empty;
 
 			for(int i = 0; i < board.pieces[piece].Count; i++)
 			{
@@ -42,18 +39,18 @@ namespace ErunaChess
 
 		static void AddPiece(Board board, int square, int piece)
 		{
-			board.board[square] = piece;
+			board[square] = piece;
 
 			board.pieces[piece].Add(square);
 		}
 
 		static void MovePiece(Board board, int from, int to)
 		{
-			int piece = board.board[from];
+			int piece = board[from];
 
-			board.board[from] = Global.empty;
+			board[from] = empty;
 
-			board.board[to] = piece;
+			board[to] = piece;
 			
 			for (int i = 0; i < board.pieces[piece].Count; i++)
 			{
@@ -69,19 +66,19 @@ namespace ErunaChess
 		{
 			int from = Move.From(move);
 			int to = Move.To(move); 
-			int piece = board.board[from];
+			int piece = board[from];
 
 			if ((move & Move.EnPassantFlag()) > 0)
-				ClearPiece(board, board.side == Global.white ? to - Global.boardWidth : to + Global.boardWidth);
+				ClearPiece(board, board.side == white ? to - boardWidth : to + boardWidth);
 
 			if ((move & Move.CastleFlag()) > 0)
 			{
 				switch (to)
 				{
-					case (int)Global.Square.C1: MovePiece(board, (int)Global.Square.A1, (int)Global.Square.D1); break;
-					case (int)Global.Square.C8: MovePiece(board, (int)Global.Square.A8, (int)Global.Square.D8); break;
-					case (int)Global.Square.G1: MovePiece(board, (int)Global.Square.H1, (int)Global.Square.F1); break;
-					case (int)Global.Square.G8: MovePiece(board, (int)Global.Square.H8, (int)Global.Square.F8); break;
+					case (int)C1: MovePiece(board, (int)A1, (int)D1); break;
+					case (int)C8: MovePiece(board, (int)A8, (int)D8); break;
+					case (int)G1: MovePiece(board, (int)H1, (int)F1); break;
+					case (int)G8: MovePiece(board, (int)H8, (int)F8); break;
 				}
 			}
 
@@ -92,12 +89,12 @@ namespace ErunaChess
 
 			board.castlePermission &= castleBoard[to];
 			board.castlePermission &= castleBoard[from];
-			board.enpassantSquare = (int)Global.Square.offBoard;
+			board.enpassantSquare = (int)offBoard;
 
 			int captured = Move.Captured(move);
 			board.fiftyMove++;
 
-			if(captured != Global.empty)
+			if(captured != empty)
 			{
 				ClearPiece(board, to);
 				board.fiftyMove = 0;
@@ -106,11 +103,11 @@ namespace ErunaChess
 			board.ply++;
 			board.historyPly++;
 
-			if ((piece & Global.pawnBit) > 0)
+			if ((piece & pawnBit) > 0)
 			{
 				if ((move & Move.PawnStartFlag()) > 0)
 				{
-					if (board.side == Global.white)
+					if (board.side == white)
 					{
 						board.enpassantSquare = from + 16;
 					}
@@ -126,15 +123,15 @@ namespace ErunaChess
 
 			int promoted = Move.Promoted(move);
 
-			if (promoted != Global.empty)
+			if (promoted != empty)
 			{
 				ClearPiece(board, to);
 				AddPiece(board, to, promoted);
 			}
 
-			board.side ^= Global.border;
+			board.side ^= border;
 
-			if (Attack.SquareAttacked(board, board.pieces[Global.kingBits + (board.side ^ Global.border)][0], board.side))
+			if (Attack.SquareAttacked(board, board.pieces[kingBits + (board.side ^ border)][0], board.side))
 			{
 				Take(board);
 				return false;
@@ -156,17 +153,17 @@ namespace ErunaChess
 			board.fiftyMove = board.history[board.historyPly].fiftymove;
 			board.enpassantSquare = board.history[board.historyPly].enpassantSquare;
 
-			board.side ^= Global.border;
+			board.side ^= border;
 
 			if ((move & Move.EnPassantFlag()) > 0)
 			{
-				if (board.side == Global.white)
+				if (board.side == white)
 				{
-					AddPiece(board, to - 16 , Global.blackPawn);
+					AddPiece(board, to - 16 , blackPawn);
 				}
 				else
 				{
-					AddPiece(board, to + 16, Global.whitePawn);
+					AddPiece(board, to + 16, whitePawn);
 				}
 			}
 
@@ -174,10 +171,10 @@ namespace ErunaChess
 			{
 				switch(to)
 				{
-					case (int)Global.Square.C1: MovePiece(board, (int)Global.Square.D1, (int)Global.Square.A1); break;
-					case (int)Global.Square.C8: MovePiece(board, (int)Global.Square.D8, (int)Global.Square.A8); break;
-					case (int)Global.Square.G1: MovePiece(board, (int)Global.Square.F1, (int)Global.Square.H1); break;
-					case (int)Global.Square.G8: MovePiece(board, (int)Global.Square.F8, (int)Global.Square.H8); break;
+					case (int)C1: MovePiece(board, (int)D1, (int)A1); break;
+					case (int)C8: MovePiece(board, (int)D8, (int)A8); break;
+					case (int)G1: MovePiece(board, (int)F1, (int)H1); break;
+					case (int)G8: MovePiece(board, (int)F8, (int)H8); break;
 				}
 			}
 
@@ -185,15 +182,15 @@ namespace ErunaChess
 
 			int capturedPiece = Move.Captured(move);
 
-			if (capturedPiece != Global.empty)
+			if (capturedPiece != empty)
 			{
 				AddPiece(board, to, capturedPiece);
 			}
 
-			if (Move.Promoted(move) != Global.empty)
+			if (Move.Promoted(move) != empty)
 			{
 				ClearPiece(board, from);
-				AddPiece(board, from, board.side + Global.pawnBit);
+				AddPiece(board, from, board.side + pawnBit);
 			}
 		}
 	}

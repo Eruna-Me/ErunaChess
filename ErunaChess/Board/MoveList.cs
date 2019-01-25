@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ErunaChess
 {
@@ -12,27 +8,12 @@ namespace ErunaChess
 
 		public Move this[int i]
 		{
-			get
-			{
-				return moves[i];
-			}
-			set
-			{
-				moves[i] = value;
-			}
+			get => moves[i];
+			set => moves[i] = value;
 		}
 
-		public int Count
-		{
-			get
-			{
-				return moves.Count;
-			}
-		}
+		public int Count => moves.Count;
 
-		public void Add(Move move)
-		{
-			moves.Add(move);
-		}
+		public void Add(Move move) => moves.Add(move);
 	}
 }

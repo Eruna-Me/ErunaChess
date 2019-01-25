@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using static ErunaChess.Global;
 
 namespace ErunaChess
 {
@@ -16,26 +12,26 @@ namespace ErunaChess
 		public static bool SquareAttacked(Board board, int square, int side)
 		{
 			// Pawns
-			int pawnDirection = side == Global.white ? -Global.boardWidth : Global.boardWidth;
-			if (board.board[square + pawnDirection + 1] == side + Global.pawnBit || board.board[square + pawnDirection - 1] == side + Global.pawnBit)
+			int pawnDirection = side == white ? -boardWidth : boardWidth;
+			if (board[square + pawnDirection + 1] == side + pawnBit || board[square + pawnDirection - 1] == side + pawnBit)
 				return true;
 
 			//king
 			for (int i = 0; i < 8; i++)
-				if (board.board[square + kingDirections[i]] == (side == Global.white ? Global.whiteKing : Global.blackKing)) return true;
+				if (board[square + kingDirections[i]] == (side == white ? whiteKing : blackKing)) return true;
 
 			//Knights
 			for (int i = 0; i < 8; i++)
-				if (board.board[square + knightDirections[i]] == (side == Global.white ? Global.whiteKnight : Global.blackKnight)) return true;
+				if (board[square + knightDirections[i]] == (side == white ? whiteKnight : blackKnight)) return true;
 			
 			//sliders
 			for (int i = 0; i < 4; i++)
 			{
 				int direction = orthogonalDirections[i];
 				int temporarySquare = square + direction;
-				while (board.board[temporarySquare] == Global.empty)
+				while (board[temporarySquare] == empty)
 					temporarySquare += direction;
-				if ((board.board[temporarySquare] & (Global.orthogonalBit + Global.border)) == (side == Global.white ? Global.whiteRook : Global.blackRook))
+				if ((board[temporarySquare] & (orthogonalBit + border)) == (side == white ? whiteRook : blackRook))
 					return true; 
 			}
 			
@@ -43,9 +39,9 @@ namespace ErunaChess
 			{
 				int direction = diagionalDirections[i];
 				int temporarySquare = square + direction;
-				while (board.board[temporarySquare] == Global.empty)
+				while (board[temporarySquare] == empty)
 					temporarySquare += direction;
-				if ((board.board[temporarySquare] & (Global.diagionalBit + Global.border)) == (side == Global.white ? Global.whiteBishop : Global.blackBishop))
+				if ((board[temporarySquare] & (diagionalBit + border)) == (side == white ? whiteBishop : blackBishop))
 					return true;
 			}
 

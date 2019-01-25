@@ -1,15 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static ErunaChess.Global;
+using static ErunaChess.Global.Square;
 
 namespace ErunaChess
 {
 	public class Board
 	{
-		public int[] board = new int[Global.boardSize];
-		public List<int>[] pieces = new List<int>[Global.border];
+		public int[] board = new int[boardSize];
+		public List<int>[] pieces = new List<int>[border];
+
+		public int this[int i]
+		{
+			get => board[i];
+			set => board[i] = value;
+		}
+
+		public int this[Square sq]
+		{
+			get => board[(int)sq];
+			set => board[(int)sq] = value;
+		}
 
 		public int side;
 		public int enpassantSquare;
@@ -30,46 +41,46 @@ namespace ErunaChess
 				history[i] = new History();
 			}
 
-			pieces[Global.blackPawn] = new List<int>();
-			pieces[Global.whitePawn] = new List<int>();
-			pieces[Global.blackKnight] = new List<int>();
-			pieces[Global.whiteKnight] = new List<int>();
-			pieces[Global.blackBishop] = new List<int>();
-			pieces[Global.whiteBishop] = new List<int>();
-			pieces[Global.whiteRook] = new List<int>();
-			pieces[Global.blackRook] = new List<int>();
-			pieces[Global.blackQueen] = new List<int>();
-			pieces[Global.whiteQueen] = new List<int>();
-			pieces[Global.blackKing] = new List<int>();
-			pieces[Global.whiteKing] = new List<int>();
+			pieces[blackPawn] = new List<int>();
+			pieces[whitePawn] = new List<int>();
+			pieces[blackKnight] = new List<int>();
+			pieces[whiteKnight] = new List<int>();
+			pieces[blackBishop] = new List<int>();
+			pieces[whiteBishop] = new List<int>();
+			pieces[whiteRook] = new List<int>();
+			pieces[blackRook] = new List<int>();
+			pieces[blackQueen] = new List<int>();
+			pieces[whiteQueen] = new List<int>();
+			pieces[blackKing] = new List<int>();
+			pieces[whiteKing] = new List<int>();
 		}
 
 		public static void Draw(Board board)
 		{
-			for(int i = 0; i < Global.boardSize; i++)
+			for(int i = 0; i < boardSize; i++)
 			{
-				Console.Write("{0,4}", board.board[i]);
+				Console.Write("{0,4}", board[i]);
 				if ((i+1) % 16 == 0) Console.WriteLine();
 			}
 		}
 
 		public static void Reset(Board board)
 		{
-			for (int i = 0; i < Global.boardSize; i++)
+			for (int i = 0; i < boardSize; i++)
 			{
-				board.board[i] = Global.border;
+				board[i] = border;
 			}
 
 			for (int i = 0; i < 8; i++)
 			{
 				for(int j = 0; j < 8; j++)
 				{
-					board.board[(i*16) + j + (int)Global.Square.A1] = Global.empty;
+					board[(i*16) + j + (int)A1] = empty;
 				}
 			}
 
 			board.side = 2;
-			board.enpassantSquare = (int)Global.Square.offBoard;
+			board.enpassantSquare = (int)offBoard;
 			board.fiftyMove = 0;
 			board.ply = 0;
 			board.historyPly = 0;

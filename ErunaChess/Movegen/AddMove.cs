@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using static ErunaChess.Global;
 
 namespace ErunaChess
 {
@@ -21,10 +17,10 @@ namespace ErunaChess
 		public static void PromotionMove(Board board, int move, MovesList movesList)
 		{
 			//add promotions
-			movesList.Add(new Move(move + ((board.side == Global.white ? Global.whiteQueen : Global.blackQueen) << 22), 0));
-			movesList.Add(new Move(move + ((board.side == Global.white ? Global.whiteBishop : Global.blackBishop) << 22), 0));
-			movesList.Add(new Move(move + ((board.side == Global.white ? Global.whiteRook : Global.blackRook) << 22), 0));
-			movesList.Add(new Move(move + ((board.side == Global.white ? Global.whiteKnight : Global.blackKnight) << 22), 0));
+			movesList.Add(new Move(move + ((board.side == white ? whiteQueen : blackQueen) << 22), 0));
+			movesList.Add(new Move(move + ((board.side == white ? whiteBishop : blackBishop) << 22), 0));
+			movesList.Add(new Move(move + ((board.side == white ? whiteRook : blackRook) << 22), 0));
+			movesList.Add(new Move(move + ((board.side == white ? whiteKnight : blackKnight) << 22), 0));
 		}
 	}
 }
