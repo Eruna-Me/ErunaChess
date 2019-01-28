@@ -10,38 +10,32 @@ namespace ErunaChess
 		static readonly int[] diagionalDirections = { 15, 17, -15, -17 };
 
 		public static bool SquareAttacked(Board board, int square, int side)
-		{
-			// Pawns
+		{ 
 			int pawnDirection = side == white ? -boardWidth : boardWidth;
 			if (board[square + pawnDirection + 1] == side + pawnBit || board[square + pawnDirection - 1] == side + pawnBit)
 				return true;
 
-			//king
-			for (int i = 0; i < 8; i++)
-				if (board[square + kingDirections[i]] == (side == white ? whiteKing : blackKing)) return true;
+			foreach (int dir in kingDirections)
+				if (board[square + dir] == side + kingBits) return true;
 
-			//Knights
-			for (int i = 0; i < 8; i++)
-				if (board[square + knightDirections[i]] == (side == white ? whiteKnight : blackKnight)) return true;
+			foreach (int dir in knightDirections)
+				if (board[square + dir] == side + knightBit) return true;
 			
-			//sliders
-			for (int i = 0; i < 4; i++)
+			foreach (int dir in orthogonalDirections)
 			{
-				int direction = orthogonalDirections[i];
-				int temporarySquare = square + direction;
+				int temporarySquare = square + dir;
 				while (board[temporarySquare] == empty)
-					temporarySquare += direction;
-				if ((board[temporarySquare] & (orthogonalBit + border)) == (side == white ? whiteRook : blackRook))
+					temporarySquare += dir;
+				if ((board[temporarySquare] & (orthogonalBit + border)) == side + orthogonalBit)
 					return true; 
 			}
 			
-			for (int i = 0; i < 4; i++)
-			{
-				int direction = diagionalDirections[i];
-				int temporarySquare = square + direction;
+			foreach (int dir in diagionalDirections)
+			{ 
+				int temporarySquare = square + dir;
 				while (board[temporarySquare] == empty)
-					temporarySquare += direction;
-				if ((board[temporarySquare] & (diagionalBit + border)) == (side == white ? whiteBishop : blackBishop))
+					temporarySquare += dir;
+				if ((board[temporarySquare] & (diagionalBit + border)) == side + diagionalBit)
 					return true;
 			}
 
