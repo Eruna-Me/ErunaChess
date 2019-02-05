@@ -22,19 +22,10 @@ namespace ErunaChess
 		}
 
 		static void ClearPiece(Board board, int square)
-		{
-			int piece = board[square];
+		{ 
+			board.pieces[board[square]].Remove(square);
 
 			board[square] = empty;
-
-			for(int i = 0; i < board.pieces[piece].Count; i++)
-			{
-				if(board.pieces[piece][i] == square)
-				{
-					board.pieces[piece].RemoveAt(i);
-					break;
-				}
-			}
 		}
 
 		static void AddPiece(Board board, int square, int piece)
@@ -51,7 +42,7 @@ namespace ErunaChess
 			board[from] = empty;
 
 			board[to] = piece;
-			
+
 			for (int i = 0; i < board.pieces[piece].Count; i++)
 			{
 				if (board.pieces[piece][i] == from)
@@ -59,7 +50,7 @@ namespace ErunaChess
 					board.pieces[piece][i] = to;
 					break;
 				}
-			} 
+			}
 		}
 
 		public static bool Make(Board board, int move)
