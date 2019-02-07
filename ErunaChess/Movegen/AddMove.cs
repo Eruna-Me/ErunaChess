@@ -15,12 +15,11 @@ namespace ErunaChess
 		public static void EnpassantMove(Board board, int move, MovesList movesList)		=> movesList.Add(new Move(move, 0));
 
 		public static void PromotionMove(Board board, int move, MovesList movesList)
-		{
-			//add promotions
-			movesList.Add(new Move(move + ((board.side == white ? whiteQueen : blackQueen) << 22), 0));
-			movesList.Add(new Move(move + ((board.side == white ? whiteBishop : blackBishop) << 22), 0));
-			movesList.Add(new Move(move + ((board.side == white ? whiteRook : blackRook) << 22), 0));
-			movesList.Add(new Move(move + ((board.side == white ? whiteKnight : blackKnight) << 22), 0));
+		{ 
+			movesList.Add(new Move(move + ((board.side += queenBit) << 22), 0));
+			movesList.Add(new Move(move + ((board.side += diagionalBit) << 22), 0));
+			movesList.Add(new Move(move + ((board.side += orthogonalBit) << 22), 0));
+			movesList.Add(new Move(move + ((board.side += knightBit) << 22), 0));
 		}
 	}
 }

@@ -15,9 +15,9 @@ namespace ErunaChess
 			}
 			castleBoard[(int)A1] -= whiteQueenSideCastle;
 			castleBoard[(int)H1] -= whiteKingSideCastle;
-			castleBoard[(int)E1] += -whiteQueenSideCastle - whiteKingSideCastle;
+			castleBoard[(int)E1] -= whiteQueenSideCastle + whiteKingSideCastle;
 			castleBoard[(int)A8] -= blackQueenSideCastle;
-			castleBoard[(int)E8] += -blackKingSideCastle - blackQueenSideCastle;
+			castleBoard[(int)E8] -= blackKingSideCastle + blackQueenSideCastle;
 			castleBoard[(int)H8] -= blackKingSideCastle;
 		}
 

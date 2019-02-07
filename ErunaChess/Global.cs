@@ -28,6 +28,7 @@
 		public const int kingBits = 3;
 		public const int orthogonalBit = 4;
 		public const int diagionalBit = 8;
+		public const int queenBit = orthogonalBit + diagionalBit;
 		public const int whiteBit = 16;
 		public const int blackBit = 32;
 
