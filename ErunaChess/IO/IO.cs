@@ -4,7 +4,7 @@ using static ErunaChess.Global.Square;
 
 namespace ErunaChess
 {
-	static class IO
+	public static class IO
 	{
 		static private void AddPiece(Board board, int piece, int square)
 		{

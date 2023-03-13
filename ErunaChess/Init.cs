@@ -1,6 +1,6 @@
 ﻿namespace ErunaChess
 {
-	static class Init
+	public static class Init
 	{
 		public static void All()
 		{

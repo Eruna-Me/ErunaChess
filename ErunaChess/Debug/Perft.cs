@@ -33,7 +33,7 @@ namespace ErunaChess
 			return;
 		}
 
-		static public void PerftTest(int depth, Board board)
+		static public long PerftTest(int depth, Board board)
 		{
 			Stopwatch stopwatch = new Stopwatch();
 			Board.Draw(board);
@@ -60,7 +60,7 @@ namespace ErunaChess
 
 			Console.Write($"\nTest Complete : {leafNodes} nodes visited in {stopwatch.ElapsedMilliseconds}ms, speed = {leafNodes/stopwatch.ElapsedMilliseconds}kn/s\n" );
 
-			return;
+			return leafNodes;
 		}
 	}
 }
